@@ -1,1 +1,6 @@
 *.pyc
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/machinelol.iml
