@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 # ==================== CHALLENGER DATA ====================================
 
@@ -10,14 +11,30 @@ for region in regions:
     print("Current region: " + region)
 
     # Obtain region challengers
-    with open("Challenger2016/"+region+"/"+region+"_players.json", "r") as readfile:
+    with open("Challenger2016/"+region+"_players.json", "r") as readfile:
         data = json.load(readfile)
 
     # Get summary data por all players
     i = 1
+
     for entry in data['entries']:
         playerId = entry["playerOrTeamId"]
 
-        summary = requests.get("https://las.api.pvp.net/api/lol/" + region + "/v1.3/stats/by-summoner/" + playerId + "/summary?season=SEASON2016&")
+        print(str(i) + ". " + playerId)
+        i += 1
+
+        # Checks if the directory exists and creates it if needed.
+        path = os.getcwd() + "/" + "PlayerSummary" + "/" + region
+        if not os.path.exists(path):
+            print ("Creating folder: PlayerSummary" + "/" + region)
+            os.makedirs(path)
+
+        with open("PlayerSummary" + "/" + region + "/" + playerId + ".json", "w+") as outfile:
+            summary = requests.get("https://las.api.pvp.net/api/lol/" + region + "/v1.3/stats/by-summoner/" + playerId + "/summary?season=SEASON2016&api_key=" + keys[0])
+
+            json.dump(summary.json(), outfile)
 
     print("----------------------------------------")
+
+
+
