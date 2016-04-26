@@ -96,13 +96,14 @@ try:##For unexpected errors, saves the playerID in the log.
 
         elif request.status_code == 429:
             print ("Rate Limit exceded")
-            break
+            playerId -= 1
+            time.sleep(60)
         elif request.status_code == 500:
             print ("Internal server error")
-            break
+            playerId -= 1
         elif request.status_code == 503:
             print ("Service Unavailable")
-            break
+            playerId -= 1
         elif request.status_code == 404:
             print ("Stat data not found")
         else:
