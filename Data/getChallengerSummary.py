@@ -4,11 +4,14 @@ import os
 
 # ==================== CHALLENGER DATA ====================================
 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 keys = ["9b25bbda-7da3-4ee5-9d6b-a7ff2c402c0d", "0b808dbd-c044-43db-88a0-829dbd390aa7"]
-regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
+# regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
+regions = ["las", "na", "oce", "ru", "tr"]
 
 for region in regions:
-    print("Current region: " + region)
 
     # Obtain region challengers
     with open("Challenger2016/"+region+"_players.json", "r") as readfile:

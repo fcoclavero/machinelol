@@ -1,23 +1,21 @@
+import matplotlib.pyplot as plt
 import numpy as np
-import json
+
+from DataParser import *
 
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.preprocessing import StandardScaler
 
-regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
+dataParser = DataParser()
 
-root = "C:/Users/fcocl_000/Dropbox/Workspace/Python/Aprendizaje Bayesiano/machinelol"
+array = dataParser.parseSummary()
 
-file = open(root + "/caracteristicasUsuario.txt", "r")
-characteristics = file.read().split(",") - 10           # -10 to account for header files
-# print(len(characteristics))
+for i in array[1]:
+    print(i)
 
-dataSize = 10 * 200
-array = np.zeros(shape = (dataSize,characteristics.length))
-
-for region in regions:
-
-    with open("Challenger2016/"+region+"/"+region+"_players.json", "r") as readfile:
-        data = json.load(readfile)
+plt.plot(array[0], array[3], 'ro')
+plt.xlabel('wins')
+plt.ylabel('totalChampionKills')
+plt.show()
