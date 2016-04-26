@@ -35,6 +35,3 @@ for region in regions:
             json.dump(summary.json(), outfile)
 
     print("----------------------------------------")
-
-
-
