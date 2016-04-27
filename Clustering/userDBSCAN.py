@@ -12,10 +12,7 @@ dataParser = DataParser()
 
 array = dataParser.parseSummary()
 
-for i in array[1]:
-    print(i)
-
-plt.plot(array[0], array[3], 'ro')
+plt.plot(array[1], array[3], 'ro')
 plt.xlabel('wins')
 plt.ylabel('totalChampionKills')
 plt.show()

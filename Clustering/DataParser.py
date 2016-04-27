@@ -11,7 +11,7 @@ class DataParser:
     characteristics = ["totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
 
     def parseSummary(self):
-        array = np.zeros(shape=(len(self.characteristics), self.dataSize))
+        array = np.zeros(shape=(len(self.characteristics) + 3, self.dataSize))
 
         i = 0                                                         # user index
         for region in self.regions:
@@ -31,8 +31,10 @@ class DataParser:
                     continue
 
                 # Transfer data from dict to np array
-                array[0][i] = data[normalIndex]['wins'] + data[rankedIndex]['wins']
-                array[1][i] = 1313
+                array[1][i] = data[normalIndex]['wins'] + data[rankedIndex]['wins']
+                array[2][i] = data[rankedIndex]['losses']
+                array[0][i] = array[1][i] + array[2][i] # total ranked and unranked games
+
                 for j in range(2,len(self.characteristics)):
                     array[j][i] = data[normalIndex]["aggregatedStats"][self.characteristics[j]] + data[rankedIndex]["aggregatedStats"][self.characteristics[j]]
 
