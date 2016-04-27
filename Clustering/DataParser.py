@@ -4,10 +4,11 @@ import os
 
 class DataParser:
 
-    # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-    regions = ["las", "na", "oce", "ru", "tr"]
-    dataRoot = "C:/Users/fcocl_000/Dropbox/Workspace/Python/Aprendizaje Bayesiano/machinelol/Data"
-    dataSize = 10 * 200
+    def __init__(self, regions, dataDirectory, dataSize):
+        self.regions = regions
+        self.dataDirectory = dataDirectory
+        self.dataSize = dataSize
+
     characteristics = ["totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
 
     def parseSummary(self):
@@ -15,7 +16,7 @@ class DataParser:
 
         i = 0                                                         # user index
         for region in self.regions:
-            dir = self.dataRoot + "/PlayerSummary/" + region + "/"    # region's directory
+            dir = self.dataDirectory + "/PlayerSummary/" + region + "/"    # region's directory
             for fileDir in os.listdir(dir):                           # for every file in the directory
                 with open(dir + fileDir, "r") as readfile:            # open file
                     # load data onto dict
@@ -27,7 +28,7 @@ class DataParser:
 
                 normalIndex = self.typeIndex(data, "Unranked")
                 rankedIndex = self.typeIndex(data, "RankedSolo5x5")
-                if normalIndex == None or rankedIndex == None:
+                if normalIndex is None or rankedIndex is None:
                     continue
 
                 # Transfer data from dict to np array
@@ -35,7 +36,7 @@ class DataParser:
                 array[2][i] = data[rankedIndex]['losses']
                 array[0][i] = array[1][i] + array[2][i] # total ranked and unranked games
 
-                for j in range(2,len(self.characteristics)):
+                for j in range(2, len(self.characteristics)):
                     array[j][i] = data[normalIndex]["aggregatedStats"][self.characteristics[j]] + data[rankedIndex]["aggregatedStats"][self.characteristics[j]]
 
                 i += 1
@@ -45,4 +46,4 @@ class DataParser:
     def typeIndex(self, data, type):
         for i in range(len(data)):
             if data[i]["playerStatSummaryType"] == type:
-                return(i)
+                return i
