@@ -12,9 +12,8 @@ class DataParser:
     characteristics = ["totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
 
     def parseSummary(self):
-        array = np.zeros(shape=(len(self.characteristics) + 3, self.dataSize))
-
-        i = 0                                                         # user index
+        array = []
+        i = 0
         for region in self.regions:
             dir = self.dataDirectory + "/PlayerSummary/" + region + "/"    # region's directory
             for fileDir in os.listdir(dir):                           # for every file in the directory
@@ -26,19 +25,24 @@ class DataParser:
                         continue
 
 
+                # Check if file contains match data
                 normalIndex = self.typeIndex(data, "Unranked")
                 rankedIndex = self.typeIndex(data, "RankedSolo5x5")
                 if normalIndex is None or rankedIndex is None:
                     continue
 
                 # Transfer data from dict to np array
-                array[1][i] = data[normalIndex]['wins'] + data[rankedIndex]['wins']
-                array[2][i] = data[rankedIndex]['losses']
-                array[0][i] = array[1][i] + array[2][i] # total ranked and unranked games
+                aux = []
+
+                aux.append(data[normalIndex]['wins'] + data[rankedIndex]['wins'])
+                #aux.append(data[rankedIndex]['losses'])
+
+                aux.append(data[normalIndex]["aggregatedStats"][self.characteristics[2]] + data[rankedIndex]["aggregatedStats"][self.characteristics[2]])
 
                 for j in range(2, len(self.characteristics)):
-                    array[j][i] = data[normalIndex]["aggregatedStats"][self.characteristics[j]] + data[rankedIndex]["aggregatedStats"][self.characteristics[j]]
+                    aux.append(data[normalIndex]["aggregatedStats"][self.characteristics[j]] + data[rankedIndex]["aggregatedStats"][self.characteristics[j]])
 
+                array.append(aux)
                 i += 1
 
         return(array)
