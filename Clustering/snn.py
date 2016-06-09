@@ -1,0 +1,119 @@
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import cm
+
+import numpy as np
+from numpy import genfromtxt
+
+from sklearn.preprocessing import StandardScaler
+from scipy.spatial import distance
+
+# Constants
+k = 20
+eps = 15
+min_pts = 10
+
+dataDirectory = "C:/Users/fcocl_000/Dropbox/Workspace/Python/Aprendizaje Bayesiano/machinelol/Data"
+
+# Read data from csv file
+X = genfromtxt(dataDirectory + "/csv/Summary/Challenger.csv", delimiter=',')
+labels_true = X
+X = StandardScaler().fit_transform(X)
+
+# Compute similarity matrix. Corresponds to a clique in which nodes
+# are the dataset points, and the edge's weigths are the similarity
+# measure between two points. Euclidean distance is used as the
+# similarity measure.
+n = X.shape[0]
+
+distances = np.zeros((n, n))
+
+for i in range(n):
+    for j in range(n):
+        distances[i,j] = 0 if i==j else distance.euclidean(X[i], X[j])
+
+# Matrix is sparsified: only the k most similar (nearest) neighbors are
+# kept (corresponds to keeping the k strongest links of the similarity
+# graph)
+
+def getMax(knn, i):
+    maxDistance = -1
+    maxIndex = -1
+    for index in knn:
+        if maxDistance < distances[i,index]:
+            maxDistance = distances[i,index]
+            maxIndex = index
+    return maxIndex
+
+sparsified = []
+
+for i in range(n):
+    knn = []
+
+    for j in range (n):
+        if len(knn) < k:
+            knn.append(j)
+        else:
+            max = getMax(knn, i)
+            if distances[i,j] < distances[i,max]:
+                knn[knn.index(max)] = j
+
+    if len(knn) == k:
+        sparsified.append(knn)
+    else: raise ValueError("Length of nearest neighbor array is " +
+                            len(knn) + ", expected " + k)
+
+# The sparsified object can be used as the adjacency matrix of
+# the shared nearest neighbor graph
+
+# Create SNN (similar nearest neighbor) density matrix. SNN similarity
+# is defined as:
+# similarity(p,q) = size(KNN(p) intersection KNN(q))
+# If the similarity between two points is less than eps, then it is
+# ignored (set to zero).
+
+snn = np.zeros((n,n))
+
+for i in range(n):
+    for neighbor in sparsified[i]:
+        if neighbor == i:
+            snn[i,neighbor] = 0
+        else:
+            aux = len(list(filter(lambda x: x in sparsified[neighbor], sparsified[i])))
+            snn[i,neighbor] = 0 if aux < eps else aux
+
+# Jarvis-Patrick clustering: clusters are defined from connected
+# points in the SNN graph.
+
+# jpClusters[i] contains the cluster of point i
+jpClusters = np.zeros(n)
+nClusters = 1
+
+def cluster(i, clstr):
+    # Assign to new cluster if unclustered
+    if jpClusters[i] == 0:
+        jpClusters[i] = clstr
+    else: return
+
+    # Visit i's neighbors and assign them to the same cluster
+    for j in range(n):
+        # Recursive call
+        if (snn[i,j] != 0): cluster(j, clstr)
+
+for i in range(n):
+    if jpClusters[i] == 0:
+        cluster(i, nClusters)
+        nClusters += 1
+
+# Result visualization
+
+color = cm.rainbow(np.linspace(0, 1, nClusters))
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot data points
+for i in range(n):
+    col = 'k' if jpClusters[i] == 0 else color[jpClusters[i]]
+    ax.scatter(X[i][0], X[i][1], X[i][2], 'o', c=col)
+
+plt.show()
