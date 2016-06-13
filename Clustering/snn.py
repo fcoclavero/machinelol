@@ -1,17 +1,6 @@
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import cm
-
 import numpy as np
-from numpy import genfromtxt
 
-from mpl_toolkits.mplot3d import Axes3D
-from sklearn.preprocessing import StandardScaler
 from scipy.spatial import distance
-
-def loadData(dataDirectory):
-    # Read data from csv file
-    X = genfromtxt(dataDirectory + "/csv/Summary/Challenger.csv", delimiter=',')
-    return StandardScaler().fit_transform(X)
 
 # Returns the point furthest from i in the knn array.
 def getMax(distances, knn, i):
@@ -39,7 +28,7 @@ def getDistances(n, X):
 # Sparsifies matrix: only the k most similar (nearest) neighbors
 # are kept (corresponds to keeping the k strongest links of the
 # similarity graph)
-def sparse(n, distances):
+def sparse(k, n, distances):
     sparsified = []
 
     for i in range(n):
@@ -65,7 +54,7 @@ def sparse(n, distances):
 # similarity(p,q) = size(KNN(p) intersection KNN(q))
 # If the similarity between two points is less than eps, then it is
 # ignored (set to zero).
-def createSnn(n, sparsified):
+def createSnn(eps, n, sparsified):
     snn = np.zeros((n,n))
 
     for i in range(n):
@@ -78,24 +67,6 @@ def createSnn(n, sparsified):
 
     return snn
 
-# Result visualization
-def plotResults(X, jpClusters, nClusters):
-    n = X.shape[0]
-
-    color = cm.rainbow(np.linspace(0, 1, nClusters))
-
-    fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    ax = fig.add_subplot(111)
-
-    # Plot data points
-    for i in range(n):
-        col = 'k' if jpClusters[i] == 0 else color[jpClusters[i]]
-        # ax.scatter(X[i][0], X[i][1], X[i][2], 'o', c=col)
-        ax.scatter(X[i][0], X[i][1], c=col)
-
-    plt.show()
-
 # Cluster the data in dataDirectory based on the similar neatest
 # neighbor methodself.
 def snnCluster(X, k, eps, min_pts):
@@ -106,10 +77,10 @@ def snnCluster(X, k, eps, min_pts):
 
     # The sparsified array can be used as the adjacency matrix of
     # the shared nearest neighbor graph
-    sparsified = sparse(n, distances)
+    sparsified = sparse(k, n, distances)
 
     # Get Snn matrix
-    snn = createSnn(n, sparsified)
+    snn = createSnn(eps, n, sparsified)
 
     # Jarvis-Patrick clustering: clusters are defined from connected
     # points in the SNN graph.
