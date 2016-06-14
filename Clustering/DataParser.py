@@ -4,20 +4,24 @@ import os
 
 class DataParser:
 
-    def __init__(self, regions, dataDirectory, dataSize):
+    def __init__(self, characteristics, regions, dataDirectory, dataSize):
         self.regions = regions
         self.dataDirectory = dataDirectory
         self.dataSize = dataSize
-
-    characteristics = ["totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
+        self.characteristics = characteristics
 
     def parseSummary(self):
         array = []
-        i = 0
+
         for region in self.regions:
             dir = self.dataDirectory + "/PlayerSummary/" + region + "/"    # region's directory
-            for fileDir in os.listdir(dir):                           # for every file in the directory
-                with open(dir + fileDir, "r") as readfile:            # open file
+
+            i = 0
+            for fileDir in os.listdir(dir):
+                if (i > self.dataSize): break
+
+                # for every file in the directory
+                with open(dir + fileDir, "r") as readfile:
                     # load data onto dict
                     try:
                         data = json.load(readfile)['playerStatSummaries']
@@ -34,13 +38,16 @@ class DataParser:
                 # Transfer data from dict to np array
                 aux = []
 
-                aux.append(data[normalIndex]['wins'] + data[rankedIndex]['wins'])
-                #aux.append(data[rankedIndex]['losses'])
-
-                aux.append(data[normalIndex]["aggregatedStats"][self.characteristics[2]] + data[rankedIndex]["aggregatedStats"][self.characteristics[2]])
-
-                for j in range(2, len(self.characteristics)):
-                    aux.append(data[normalIndex]["aggregatedStats"][self.characteristics[j]] + data[rankedIndex]["aggregatedStats"][self.characteristics[j]])
+                try:
+                    for char in self.characteristics:
+                        if(char == 'wins'):
+                            aux.append(data[normalIndex]['wins'] + data[rankedIndex]['wins'])
+                        elif(char == 'losses'):
+                            aux.append(data[rankedIndex]['losses'])
+                        else:
+                            aux.append(data[normalIndex]["aggregatedStats"][char] + data[rankedIndex]["aggregatedStats"][char])
+                except:
+                    continue
 
                 array.append(aux)
                 i += 1
