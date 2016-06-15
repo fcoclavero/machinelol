@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import snn
@@ -9,12 +10,16 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def loadData(dataDirectory):
     # Read data from csv file
-    X = genfromtxt(dataDirectory + "/csv/Summary/Challenger.csv", delimiter=',')
-    return StandardScaler().fit_transform(X)
+    data = pd.read_csv(dataDirectory + "/csv/Summary/Challenger.csv", sep = ";")
+
+    # Parse data, drops id column
+    X = (data.drop('id', 1)).as_matrix()
+    return data, StandardScaler().fit_transform(X)
 
 # Result visualization
-def plotResults(X, jpClusters, nClusters):
+def plotResults(data, X, jpClusters, nClusters):
     n = X.shape[0]
+    headers = data.columns.values.tolist()
 
     color = cm.rainbow(np.linspace(0, 1, nClusters))
 
@@ -38,8 +43,11 @@ min_pts = 10
 dataDirectory = "C:/Users/fcocl_000/Dropbox/Workspace/Python/Aprendizaje Bayesiano/machinelol/Data"
 
 # Execute test
-X = loadData(dataDirectory)
+data, X = loadData(dataDirectory)
 jpClusters, nClusters = snn.snnCluster(X, k, eps, min_pts)
-plotResults(X, jpClusters, nClusters)
+plotResults(data, X, jpClusters, nClusters)
+
+# Create statistics
+
 
 print("Number of clusters: " + str(nClusters))
