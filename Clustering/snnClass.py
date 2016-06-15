@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 class SNN:
     def __init__(self, data, k, eps, min_pts):
         # Get list of point id's
-        self.ids = data["id"]
+        self.ids = data["id"].values
 
         self.X = self.fitData(data)
         self.n = self.X.shape[0]
@@ -128,7 +128,7 @@ class SNN:
         self.labels = jpClusters
         self.nClusters = nClusters
 
-    # Result visualization
+    # Result visualization in 2D
     def plot2D(self):
         color = cm.rainbow(np.linspace(0, 1, self.nClusters))
 
@@ -142,7 +142,7 @@ class SNN:
 
         plt.show()
 
-    # Result visualization
+    # Result visualization in 3D
     def plot3D(self):
         color = cm.rainbow(np.linspace(0, 1, self.nClusters))
 
@@ -155,3 +155,13 @@ class SNN:
             ax.scatter(self.X[i][0], self.X[i][1], self.X[i][2], 'o', c=col)
 
         plt.show()
+
+    # Retrieves all the points in the same cluster as the user of the
+    # given ID
+    def getCluster(self, id):
+        # Get requested user's index in clustered data
+        index = np.where(self.ids == id)
+        # Get indexes of cluster members
+        indexes = np.where(self.labels == self.labels[index])
+        # Return id's of cluster members
+        return(self.ids[indexes])
