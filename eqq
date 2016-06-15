@@ -1,0 +1,502 @@
+[33mcommit 26e2a81898b797560494714cc3210aa24bd077db[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Jun 14 23:16:14 2016 -0400
+
+    Data folder restructure and recomender system finished
+
+[33mcommit 01bbfad4d23ad9025d9ec361f617faf83ec4a80c[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Jun 14 18:57:38 2016 -0400
+
+    Data Folder restructure, archived dataExtractionScripts, all Data moved to .zip, and new scripts relative to recomendation system.
+
+[33mcommit f648d98e7139f8cba957fcb8b7658f5d3a1f4f4a[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Jun 14 18:30:16 2016 -0400
+
+    First update
+
+[33mcommit 718d6456210da9ed6be96f2ee120891809aeafe0[m
+Merge: 69b5a54 a47c629
+Author: Vicente Oyanedel <vicenteoyanedel@gmail.com>
+Date:   Tue Jun 14 01:45:38 2016 -0300
+
+    Merge pull request #23 from fcoclavero/master
+    
+    Big update
+
+[33mcommit a47c629b229b4a6fda4611538008239fc10b3683[m
+Merge: 22eb214 8186a10
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Mon Jun 13 18:06:09 2016 -0300
+
+    Merge pull request #22 from fcoclavero/snn_cluster
+    
+    Snn cluster
+
+[33mcommit 8186a100aca0d786dfbdb7932480a10cef73f183[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Jun 13 13:46:13 2016 -0400
+
+    More refactoring
+
+[33mcommit 21c53618b4aec09ba9655af793209d04b93f1afc[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Jun 13 13:40:06 2016 -0400
+
+    Refactored clustering scripts to increase modularity.
+
+[33mcommit c734521b5a0cab5c7abd128ac62bc73b7ad91a35[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Jun 13 01:21:42 2016 -0400
+
+    Refactored snn.py
+
+[33mcommit 22eb214c5eb41c1a94de4ffcd6abfbc444769435[m
+Merge: a4539d7 fec9073
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Wed Jun 8 22:32:19 2016 -0300
+
+    Merge pull request #21 from fcoclavero/snn_cluster
+    
+    Snn cluster
+
+[33mcommit fec9073305bfa7d51aeae8ece1d2f208dd7864fa[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Wed Jun 8 21:31:14 2016 -0400
+
+    removed file added by mistake
+
+[33mcommit df59bfc9fd88522ae4208302cc4e628aa006ef4e[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Wed Jun 8 21:25:45 2016 -0400
+
+    Initial implementation of SNN clustering
+
+[33mcommit 69b5a54245b832108b757660c528e611f49142a2[m
+Merge: 903ec5e a4539d7
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed May 11 13:40:12 2016 -0300
+
+    Merge pull request #20 from fcoclavero/master
+    
+    Finished DBSCAN branch update
+
+[33mcommit a4539d7838ecf05a4bf0ca595cb526285037ec74[m
+Merge: e2f76e1 903ec5e
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed May 11 13:37:41 2016 -0300
+
+    Merge pull request #19 from fcoclavero/experimental
+    
+    Updated some scripts and some data
+
+[33mcommit 903ec5e0652db5f3c2fd7bbc4d33bd86509827ed[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed May 11 13:34:00 2016 -0300
+
+    Updated some scripts and new data
+
+[33mcommit e2f76e1ec9d638495a7b168b7965ccc92a5e52c9[m
+Merge: 1cf6614 82eead5
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Mon May 2 18:26:19 2016 -0300
+
+    Merge pull request #18 from fcoclavero/user_dbscan
+    
+    Finished DBSCAN. Parameter adjustment pending.
+
+[33mcommit 82eead561ed55d6e9f29a6ceaad77f1bbdc950c1[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon May 2 18:24:39 2016 -0300
+
+    Finished DBSCAN. Parameter adjustment pending.
+
+[33mcommit 454bce7cf991095c123d51e9a91348bc38cd2f70[m
+Merge: db6bbdd 1cf6614
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon May 2 16:19:14 2016 -0300
+
+    Merge pull request #17 from fcoclavero/master
+    
+    Merge pull request #16 from fcoclavero/experimental
+
+[33mcommit 1cf6614d7edb877f16115e763e58a448a0c33805[m
+Merge: 2069833 db6bbdd
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon May 2 14:36:34 2016 -0300
+
+    Merge pull request #16 from fcoclavero/experimental
+    
+    Restructure Data folder and script polishing
+
+[33mcommit db6bbdd80efc864cd44505d31d962901fee0c8f0[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon May 2 14:05:14 2016 -0300
+
+    New player summary data extracted from lan and las.
+
+[33mcommit 60ba3699d7ae1e94b3ec86de76b61855e822c58d[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Fri Apr 29 10:49:38 2016 -0300
+
+    Restructure Data folder and script polishing
+
+[33mcommit 8e35007a120ae081147bb9f01c013ad8ee76a739[m
+Merge: fd82138 2069833
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Thu Apr 28 00:42:45 2016 -0300
+
+    Merge pull request #15 from fcoclavero/master
+    
+    From Master: Branch update
+
+[33mcommit 20698331ee1a3dc3d7bf450aa3a20d7009cb29ef[m
+Merge: daee4eb fbc1507
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 17:27:11 2016 -0300
+
+    Merge pull request #14 from fcoclavero/user_dbscan
+    
+    User dbscan
+
+[33mcommit fbc150770e988aef6654df0e08c2c5dcbf728856[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 17:22:43 2016 -0300
+
+    CSV Conversion
+    
+    - Added json2csv script to parse json data and store the corresponding numpy array to a csv file.
+    
+    - userDBSCAN now reads data from the new csv files.
+
+[33mcommit 079bf5b209cbe52c1b7687067be91e63343f68a4[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 12:36:23 2016 -0300
+
+    Data Parser
+    
+    - Added total games field to numpy array for the Summary information.
+
+[33mcommit daee4eb2115b2043719529b17c2d5b75e661309e[m
+Merge: 094ca6d fd82138
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 11:31:58 2016 -0300
+
+    Merge pull request #12 from fcoclavero/experimental
+    
+    IdBombing new data & \Data cleaning.
+
+[33mcommit 094ca6d9a0452bcaa4a15e2dcb8f2d2f9a6df6f7[m
+Merge: ce15c06 79cacb7
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 11:31:34 2016 -0300
+
+    Merge pull request #13 from fcoclavero/user_dbscan
+    
+    Updated gitignore.
+
+[33mcommit 79cacb77a0a33eca1e0a38c1cfa7166704def908[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Wed Apr 27 11:30:13 2016 -0300
+
+    Updated gitignore.
+
+[33mcommit fd82138d87abcbc14be3026a224a7be1d70ef6a7[m
+Merge: dcaa77e ce15c06
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed Apr 27 01:09:07 2016 -0300
+
+    Merge branch 'master' of https://github.com/fcoclavero/machinelol into experimental
+
+[33mcommit dcaa77ee8f96216e634e72442757737185daa9ac[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed Apr 27 01:07:08 2016 -0300
+
+    IdBombing new data & \Data cleaning.
+
+[33mcommit d9918581f3df393b51d912b03da3c02d635457dc[m
+Merge: f1d5906 4e8d581
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed Apr 27 00:50:09 2016 -0300
+
+    Merge pull request #11 from fcoclavero/datasucking
+    
+    Daily (26-4) region user summary upload
+
+[33mcommit 4e8d58157bd0dc09de884581633dd6319bd6abb3[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Wed Apr 27 00:40:15 2016 -0300
+
+    Daily (26-4) region user summary upload
+
+[33mcommit f1d59062fc35a4e170d42624d2e68c1d6cb96861[m
+Merge: f41440b 323f762
+Author: Francisco Clavero <fcoclavero32@gmail.com>
+Date:   Tue Apr 26 20:20:12 2016 -0300
+
+    Merge pull request #10 from fcoclavero/datasucking
+    
+    Erased garbage
+
+[33mcommit 323f762aa29304953a7711b5c97521fd1c35ae7b[m
+Merge: a3004cb 7563824
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 18:57:33 2016 -0400
+
+    Merge branch 'datasucking' of https://github.com/fcoclavero/machinelol into datasucking
+
+[33mcommit a3004cbd97dbf7eeb9814d5c0e48257a685cc641[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 18:52:04 2016 -0400
+
+    Final test of datasucking commits
+
+[33mcommit 756382480c241f185b8ce691a5c8c0d9c9f8fd1b[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 19:46:49 2016 -0300
+
+    Erased garbage
+
+[33mcommit aab66e1a18a307910a9438022189526220a8ca5e[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 18:43:51 2016 -0400
+
+    test2
+
+[33mcommit 449de28e9c113a39a449cb2bcf0434ff5f0c04ef[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 18:42:10 2016 -0400
+
+    test
+
+[33mcommit f41440bb1ed718aaf105fccae4d4aabb799281f3[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 17:40:45 2016 -0400
+
+    PlayerID Data sucking scripts changes and some data mined already
+
+[33mcommit bec37f03e47a53bf157f21e8b69defa6d513e392[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 00:51:13 2016 -0400
+
+    Testing
+
+[33mcommit 0c57ca77aaac16b0e92fa5d2d2c2b377d3c77444[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Tue Apr 26 01:36:22 2016 -0300
+
+    Fix Id Bombing and others
+    
+    Also cleaned test files.
+
+[33mcommit ce15c066a9edcaff66dc9334a52ffc6c9b779e11[m
+Merge: a5f9803 41017c8
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 23:49:23 2016 -0300
+
+    Merge pull request #9 from fcoclavero/user_dbscan
+    
+    Created DataParser class and implemented method for user summary
+
+[33mcommit 41017c8640e6a7a62731adaa1fdeb7f720ab76a4[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 23:44:29 2016 -0300
+
+    Created DataParser class and implemented method for user summary
+
+[33mcommit 163c48edfda1c4ed66f298e77d86b4a58ae931b2[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 25 18:57:02 2016 -0300
+
+    Finished the Naive ID user getter script
+
+[33mcommit a5f9803a547699a8b0295e29f615a711474d6fea[m
+Merge: 81e3e4f f7cbc50
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 17:44:24 2016 -0300
+
+    Merge pull request #8 from fcoclavero/experimental
+    
+    Fix the las_players y algunos datos del IdBombing
+
+[33mcommit f7cbc5019f47a6fd17c3526a39080a96c7a73e03[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 25 17:43:22 2016 -0300
+
+    Fix the las_players y algunos datos del IdBombing
+
+[33mcommit 81e3e4fe8eb73f65d619b895b061d336b3d51890[m
+Merge: 52aded4 6d274cd
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 17:15:53 2016 -0300
+
+    Merge pull request #7 from fcoclavero/experimental
+    
+    Uploaded BR PlayerSummary data
+
+[33mcommit 6d274cd9cd0252726cc6f70822d46215413136cd[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 25 17:04:42 2016 -0300
+
+    Uploaded BR PlayerSummary data
+    
+    Also the getChallengerSummary script was changed.
+
+[33mcommit 52aded42288af6aafcf20cad665bb37f31391084[m
+Merge: bc7e4d2 eec828e
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 16:49:26 2016 -0300
+
+    Merge pull request #6 from fcoclavero/web_server
+    
+    Web server created.
+
+[33mcommit eec828e6da1f29430464ba8dbd9e63b467f2d27c[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 16:44:41 2016 -0300
+
+    Web server created.
+
+[33mcommit bc7e4d2cec3e0339bf4a06e1426ba1f4e9b7443d[m
+Merge: 025f540 dbfe36b
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 25 14:46:20 2016 -0300
+
+    Merge pull request #5 from fcoclavero/experimental
+    
+    Nothing
+
+[33mcommit dbfe36b6e8a77b21e6adde1de53920b7b7471b40[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 25 14:41:28 2016 -0300
+
+    Revert "First summit example"
+    
+    This reverts commit 146a5d5177618105ce8b55f284ee60fda57737c5.
+
+[33mcommit 146a5d5177618105ce8b55f284ee60fda57737c5[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 25 14:37:35 2016 -0300
+
+    First summit example
+    
+    Readme changed
+
+[33mcommit 025f5404e983a15482358d14fe953520cdda4e0d[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Tue Apr 19 21:20:48 2016 -0300
+
+    Project Definition
+
+[33mcommit 3864f8e3df1025dbf5aaf1df43795ac22cf94bed[m
+Merge: f9a56dd 646af45
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Tue Apr 19 11:22:48 2016 -0300
+
+    Merge pull request #3 from Vichoko/master
+    
+    Some work
+
+[33mcommit 646af45fa76c8f682ac0b5ffea8d64e276cb0b9a[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 18 19:33:44 2016 -0300
+
+    New data
+    
+    Added the challenger ranked data for some regions during 2015.
+    Added a Random User data sucking script and some data sucked ATM:
+    - It uses a spanish word dictionary to retrieve user information from
+    the API.
+
+[33mcommit 93114bcd3ebb4cda0f114ab1606e89bce8bcc8f2[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 18 13:20:51 2016 -0300
+
+    Rename
+    
+    Folder Challenger2016 renamed to ChallengerRanked2016
+
+[33mcommit f9c47aa5234cccebc219368627e068bd745d15e2[m
+Merge: 69df754 ab410af
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Mon Apr 18 12:43:40 2016 -0300
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into fcoclavero/master
+
+[33mcommit f9a56dd34ca4f41a9f7ce816be6225b183d3a474[m
+Merge: 69df754 ab410af
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Sun Apr 17 23:17:26 2016 -0300
+
+    Merge pull request #2 from Vichoko/master
+    
+    Changes to readme
+
+[33mcommit ab410aff6d78d390a9f1de68c49abeb1e90abca8[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Sun Apr 17 22:44:04 2016 -0300
+
+    Changes to readme
+
+[33mcommit 69df754929dd5c54b0d9a91269f971391d1da127[m
+Author: Vichoko <vicenteoyanedel@gmail.com>
+Date:   Fri Apr 15 15:28:15 2016 -0300
+
+    Create caracteristicasUsuario1
+    
+    Caractersticas para clusterizar usuarios v 1
+
+[33mcommit 4c9859404f4f2f0bd9143776a1ca4bead4e4b566[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 02:00:15 2016 -0300
+
+    Delete getPentakills.py
+
+[33mcommit 548acbc3ab74f5b0fbb4f8c3ba54d9963ded571c[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 02:00:00 2016 -0300
+
+    Delete getItemData.py
+
+[33mcommit dffa54f5ca83e269d37ecab1f04e57cc78e97023[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 01:59:49 2016 -0300
+
+    Delete getChampionData.py
+
+[33mcommit 28bb2211f1fbc5f7ca44bccb8eab3f5cb67e5a98[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 01:59:36 2016 -0300
+
+    Delete getChallengerMasteries.py
+
+[33mcommit 05f38c8cb373c47b499422718991833831dafff6[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 01:59:25 2016 -0300
+
+    Delete getChallengerData.py
+
+[33mcommit df21d234b3ca3defdb46b987b7d9e97bbf090470[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Fri Apr 15 01:54:50 2016 -0300
+
+    - Moved data gathering scripts to the /Data folder
+    - Added the /Clustering folder to contain data clustering code
+    - Added the /Django folder to contain the web server
+
+[33mcommit 6d616abf83018d50594439fac9d2a35bab8e9c3d[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 11 16:30:45 2016 -0300
+
+    Initial commit
+    
+    - Main directory contains python scripts to gather data from the Riot
+    API
+    - The /Data folder contains the downloaded data in .json files
+
+[33mcommit d86841ec440264df198d50284ec563d73c6d2e4f[m
+Author: fcoclavero <fcoclavero32@gmail.com>
+Date:   Mon Apr 11 15:25:01 2016 -0300
+
+    Initial commit
