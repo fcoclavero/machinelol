@@ -36,7 +36,8 @@ class DataParser:
                     continue
 
                 # Transfer data from dict to np array
-                aux = []
+                # Player id as first element in each row
+                aux = [os.path.splitext(fileDir)[0]] 
 
                 try:
                     for char in self.characteristics:
