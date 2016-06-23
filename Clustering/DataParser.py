@@ -4,11 +4,12 @@ import os
 
 class DataParser:
 
-    def __init__(self, characteristics, regions, dataDirectory, dataSize):
+    def __init__(self, characteristics, regions, dataDirectory, dataSize, playerId):
+        self.characteristics = characteristics
         self.regions = regions
         self.dataDirectory = dataDirectory
-        self.dataSize = dataSize
-        self.characteristics = characteristics
+        self.dataSize = dataSize - 1
+        self.playerId = playerId
 
     def parseSummary(self):
         array = []
@@ -18,6 +19,8 @@ class DataParser:
 
             i = 0
             for fileDir in os.listdir(dir):
+                print(fileDir)
+
                 if (i > self.dataSize): break
 
                 # for every file in the directory
@@ -37,7 +40,7 @@ class DataParser:
 
                 # Transfer data from dict to np array
                 # Player id as first element in each row
-                aux = [os.path.splitext(fileDir)[0]] 
+                aux = [os.path.splitext(fileDir)[0]]
 
                 try:
                     for char in self.characteristics:

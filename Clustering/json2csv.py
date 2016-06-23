@@ -8,12 +8,13 @@ from DataParser import *
 # characteristics = ["wins", "losses", "totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
 characteristics = ["wins", "totalChampionKills"]
 # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-regions = ["lan", "las"]
+regions = ["las"]
 dataDirectory = "C:/Users/fcocl_000/Dropbox/Workspace/Python/Aprendizaje Bayesiano/machinelol/Data"
 dataSize = 100
+playerId = 21685
 
 # Create a new DataParser Object
-dataParser = DataParser(characteristics, regions, dataDirectory, dataSize)
+dataParser = DataParser(characteristics, regions, dataDirectory, dataSize, playerId)
 
 # #######################################################
 # #                 Challenger Summary                  #
