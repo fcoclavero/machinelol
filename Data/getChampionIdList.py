@@ -3,7 +3,7 @@ import json
 def getChampionIds():
     array = []
     dir = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data/ChampionData"
-    with open("las.json") as readfile:
+    with open(dir + "/las.json") as readfile:
         try:
             data = json.load(readfile)['data']
         except IOError:

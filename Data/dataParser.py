@@ -5,11 +5,12 @@ import os
 
 class DataParser:
 
-    def __init__(self, characteristics, regions, dataDirectory, dataSize):
+    def __init__(self, characteristics, regions, dataDirectory, dataSize, id = 0):
         self.regions = regions
         self.dataDirectory = dataDirectory
-        self.dataSize = dataSize
+        self.dataSize = dataSize - 1
         self.characteristics = characteristics
+        self.subject = id
 
     def parseSummary(self):
         array = []
@@ -18,6 +19,7 @@ class DataParser:
             dir = self.dataDirectory + "/PlayerSummary/" + region + "/"    # region's directory
 
             i = 0
+
             for fileDir in os.listdir(dir):
                 if (i > self.dataSize): break
 

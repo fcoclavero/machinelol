@@ -18,6 +18,15 @@ class recomenderSystem:
         self.sourceFile = sourceFile
         self.championIdList = getChampionIds()
 
+        # Metadata
+        self.metadataDict = {}
+
+        # Create output mean dictionary
+        self.meanDict = {}
+
+        # create output total dictionary
+        self.totalDict = {}
+
         # Open source file
         try:
             with open(self.sourceFile) as readfile:
@@ -28,15 +37,6 @@ class recomenderSystem:
 
         except IOError:
             print("Error in source file.")
-
-        # Metadata
-        self.metadataDict = {}
-
-        # Create output mean dictionary
-        self.meanDict = {}
-
-        # create output total dictionary
-        self.totalDict = {}
 
         # Init output dicts, also count the number of masteries and ranked stats per champion (saved in metadataDict)
         for champId in self.championIdList:
@@ -69,6 +69,7 @@ class recomenderSystem:
 
             self.metadataDict[champId]['numberOfMasteryEntries'] = masteryEntryNumber
             self.metadataDict[champId]['numberOfRankedEntries'] = rankedEntryNumber
+
 
     def getMeanAndTotalChampionStats(self):
         ''' recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...}
@@ -139,7 +140,7 @@ class recomenderSystem:
         self.getMeanAndTotalChampionStats()
 
         # Chose the source dict: Can be meanDict or totalDict
-        sourceDict = self.meanDict
+        sourceDict = self.totalDict
 
         # # Champion Points ranking creation
         # First leave the source dict with only championPoints as value and championId as key.
@@ -147,7 +148,7 @@ class recomenderSystem:
         for champId in sourceDict:
             auxDict[champId] = sourceDict[champId]['championPoints']
         # Now sort the dict by championPoints (dict value)
-        cpRanking = sorted(auxDict, key=auxDict.__getitem__)
+        cpRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
         # # KDA ranking creation
         # First leave the source dict with only kda as value and championId as key (Need to do some calculus)
@@ -158,7 +159,7 @@ class recomenderSystem:
             deaths = sourceDict[champId]['totalDeathsPerSession']
             auxDict[champId] = (kills + assists) / deaths if deaths != 0 else (kills + assists)/0.1
         # Now sort the dict by kda (dict value)
-        kdaRanking = sorted(auxDict, key=auxDict.__getitem__)
+        kdaRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
         # # winRate ranking creation
         # First leave the source dict with only winrate as value and championId as key (Need to do some calculus)
@@ -167,7 +168,7 @@ class recomenderSystem:
             wins = sourceDict[champId]['totalSessionsWon']
             loses = sourceDict[champId]['totalSessionsLost']
             auxDict[champId] = wins / loses if loses != 0 else wins/0.1   # Now sort the dict by kda (dict value)
-        wrRanking = sorted(auxDict, key=auxDict.__getitem__)
+        wrRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
         # # Heuristic ranking creation
         # First leave the source dict with one value (result of heuristic function) and
@@ -183,19 +184,20 @@ class recomenderSystem:
             winrate = wins / loses if loses != 0 else wins/0.1
             kda = (kills + assists) / deaths if deaths != 0 else (kills + assists)/0.1
 
-            return (alpha1 * log(cp)) + (alpha2 * kda) + (alpha3 * winrate)
+            return (alpha1 * log(cp)) + (alpha2 * kda) + (alpha3 * winrate) if cp!=0 else (alpha2 * kda) + (alpha3 * winrate)
 
         auxDict = {}
         for champId in sourceDict:
 
             auxDict[champId] =  hfunc(sourceDict, champId)
         # Now sort the dict by kda (dict value)
-        hRanking = sorted(auxDict, key=auxDict.__getitem__)
+        hRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
         return (cpRanking, kdaRanking, wrRanking, hRanking)
 
     ## Given a playerid, returns a list of recomended champions that he'd like based on championPoints (Expierence).
     def collaborativeFiltering(self, player):
+        player = unicode(player)
 
         # Correlation function returns value between -1 to 1. Value of 1 means
         # same taste (Taste is measured by similar championPoints)
@@ -204,10 +206,18 @@ class recomenderSystem:
             # A champion is played if user have 1000+ championpoints
             both_played = {}
             for champion in data[player1]:
-                if data[player1][champion][u'championPoints'] > 1000:
-                    if champion in data[player2]:
-                        if data[player2][champion][u'championPoints'] > 1000:
-                            both_played[champion] = 1
+                try:
+                    if data[player1][champion][u'championPoints'] > 1000:
+                        if champion in data[player2]:
+                            try:
+                                if data[player2][champion][u'championPoints'] > 1000:
+                                    both_played[champion] = 1
+                            except KeyError:
+                                # here if data[player2][champion][u'championPoints'] doesn't exist
+                                pass
+                except KeyError:
+                    # here if data[player1][champion][u'championPoints'] doesn't exist
+                    pass
 
             number_of_played_champs = len(both_played)
 
@@ -265,24 +275,34 @@ class recomenderSystem:
                 continue
 
             for champion in self.data[other_player]:
+                try:
+                    # This shoud pass
+                    self.data[other_player][champion][u'championPoints']
+                    # only score champions i doesn't play a lot (6000+ is lvl 3 with the champion)
+                    try:
+                        if self.data[player][champion][u'championPoints'] < 6000:
+                            # Similrity * score
+                            totals.setdefault(champion, 0)
+                            totals[champion] += self.data[other_player][champion][u'championPoints'] * sim
+                            # sum of similarities
+                            simSums.setdefault(champion, 0)
+                            simSums[champion] += sim
+                    # If key [u'championPoints'] not exist, then this
+                    except KeyError:
+                        # Similrity * score
+                        totals.setdefault(champion, 0)
+                        totals[champion] += self.data[other_player][champion][u'championPoints'] * sim
+                        # sum of similarities
+                        simSums.setdefault(champion, 0)
+                        simSums[champion] += sim
+                except KeyError:
+                    pass
 
-                # only score champions i doesn't play a lot (6000+ is lvl 3 with the champion)
-                if [u'championPoints'] not in self.data[player][champion] or self.data[player][champion][u'championPoints'] < 6000:
-                    # Similrity * score
-                    totals.setdefault(champion, 0)
-                    totals[champion] += self.data[other_player][champion][u'championPoints'] * sim
-                    # sum of similarities
-                    simSums.setdefault(champion, 0)
-                    simSums[champion] += sim
 
         # Create the normalized list
         rankings = [(total / simSums[champion], champion) for champion, total in totals.items()]
         rankings.sort()
         rankings.reverse()
         # returns the recommended items
-        recommendation_list = [recommend_item for score, recommend_item in rankings]
+        recommendation_list = [int(recomend_champion) for score, recomend_champion in rankings]
         return recommendation_list
-
-rsys = recomenderSystem()
-(cpRanking, kdaRanking, wrRanking, hRanking) = rsys.NaiveRecomenderSystem()
-print("end")
