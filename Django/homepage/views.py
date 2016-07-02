@@ -7,3 +7,8 @@ def index(request):
     template = loader.get_template('homepage/index.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+def carousel(request):
+    template = loader.get_template('homepage/Carousel Template.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
