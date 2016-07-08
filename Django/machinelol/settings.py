@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'machinelol.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'machinelol_db',
-        'USER': 'root',
-        'PASSWORD': 's1u2t3',
-        'HOST': 'localhost',
-        'PORT': 3307,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
