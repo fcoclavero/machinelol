@@ -1,12 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
+from django.http import HttpResponseRedirect
 
 from .models import User
+from .forms import SignInForm
 
 # Create your views here.
 def recomendation(request):
-    # latestUserList = User.objects.order_by('-registrationDate')[:5]
-    template = loader.get_template('recomendation/index.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    if request.method == 'POST':
+        # Create form instance and populate with data in the request
+        form = SignInForm(request.POST)
+
+        # Check validity
+        if form.is_valid():
+            data = form.cleaned_data
+            return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region']})
+
+        # If invalid redirect to error page
+        else:
+            return render(request, 'recomendation/error.html', {'message':request.POST})
+    else:
+        return render(request, 'recomendation/error.html', {'message':"request not post"})
