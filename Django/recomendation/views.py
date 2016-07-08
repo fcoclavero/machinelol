@@ -15,7 +15,12 @@ def recomendation(request):
         # Check validity
         if form.is_valid():
             data = form.cleaned_data
-            return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':getId(data["summonerName"], data["region"])})
+            id = getId(data["summonerName"], data["region"])
+
+            if id == False:
+                return render(request, 'recomendation/error.html', {'message':"invalid summoner name"})
+            else:
+                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id})
 
         # If invalid redirect to error page
         else:
