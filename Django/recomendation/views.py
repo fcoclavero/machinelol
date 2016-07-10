@@ -9,6 +9,9 @@ from recomendation.utilities import *
 # Create your views here.
 def recomendation(request):
     if request.method == 'POST':
+        # Five champions to test display
+        champions = (79,222,268,105,201)
+
         # Create form instance and populate with data in the request
         form = SignInForm(request.POST)
 
@@ -20,7 +23,7 @@ def recomendation(request):
             if id == False:
                 return render(request, 'recomendation/error.html', {'message':"invalid summoner name"})
             else:
-                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id})
+                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id, 'champions':[getChampionData(data['region'], x) for x in champions]})
 
         # If invalid redirect to error page
         else:

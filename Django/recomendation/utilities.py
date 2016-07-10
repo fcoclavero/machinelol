@@ -11,3 +11,8 @@ def getId(summonerName, region):
         id = False
 
     return id
+
+def getChampionData(region, id):
+    data = requests.get("https://las.api.pvp.net/api/lol/static-data/" + region + "/v1.2/champion/" + str(id) + "?api_key=" + keys[0])
+
+    return data.json()
