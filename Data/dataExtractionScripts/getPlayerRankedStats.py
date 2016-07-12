@@ -4,8 +4,9 @@ import time
 import sys
 
 keys = {'c': "9b25bbda-7da3-4ee5-9d6b-a7ff2c402c0d", 'v': "0b808dbd-c044-43db-88a0-829dbd390aa7"}
-regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-year = "2015"
+# regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
+regions = ["las"]
+year = "2016"
 
 # This script get UserIDs from a directory with the form: /<region>/<id>.json and requests the RankedStats to the API.
 
@@ -24,7 +25,7 @@ else:
 print("Key selected: " + key)
 
 for region in regions:
-
+	# First gets the player ids from the sourceDirectory.
     # Check if the region dir is contained in the source directory.
     regionPath = os.getcwd() + "/" + sourceDir + "/" + region
     # If not, then pass to the next region.
@@ -32,14 +33,14 @@ for region in regions:
         print ("The region " + region + " doesn't exist in the directory.")
         continue
 
-    # Iterate over the files in the region directory.
+    # Iterate over the files in the region source directory.
     for entry in os.listdir(regionPath):
 
         # Store the initial time
         t0 = time.time()
         # Split the filename of the form "<str>.<str>"
         (fileName, fileType) = entry.split('.')
-
+		# If the file is a json file is a valid one
         if fileType == "json":
             playerId = fileName
 

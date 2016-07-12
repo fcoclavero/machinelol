@@ -6,12 +6,19 @@ from getChampionIdList import getChampionIds
 
 # Parameters
 # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-regions = ["las"]
-dataDirectory = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data"
-dataSize = 100
+
 
 ''' Extracts user information from a userId array referent to champions '''
 def main(idArray):
+    aux = idArray
+    idArray = []
+    for id in aux:
+        idArray.append(int(id))
+
+    regions = ["las"]
+    dataDirectory = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data/"
+    dataSize = 1000
+
     ''' First extracts player championMastery stats '''
     # Relevant characteristics for masteries
     masteryCharacteristics = ["championPoints"]
@@ -67,6 +74,3 @@ def main(idArray):
     with open('result.json', 'w') as fp:
         print >> fp, jstr
         fp.close()
-
-userId = range(33000, 33640)
-main(userId)
