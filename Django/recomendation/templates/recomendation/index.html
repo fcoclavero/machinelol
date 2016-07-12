@@ -52,10 +52,10 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="{% url 'homepage_index' %}">Home</a></li>
-                            <li><a href="#about">About</a></li>
+                            <li><a href="{% url 'homepage_index' %}#about">About</a></li>
                             <li><a href="{% url 'homepage_index' %}">Contact</a></li>
                             <li class="dropdown">
-                                <a href="{% url 'homepage_index' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <a href="{% url 'homepage_index' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'homepage_index' %}#">Action</a></li>
                                     <li><a href="{% url 'homepage_index' %}">Another action</a></li>
