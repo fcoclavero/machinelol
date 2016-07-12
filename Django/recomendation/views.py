@@ -1,18 +1,36 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
+from django.http import HttpResponseRedirect
 
 from .models import User
+from .forms import SignInForm
+
+from recomendation.utilities import *
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hello world!")
+def recomendation(request):
+    if request.method == 'POST':
+        # Five champions to test display
+        champions = (79,222,268,105,201)
 
-def results(request, playerId):
-    latestUserList = User.objects.order_by('-registrationDate')[:5]
-    template = loader.get_template('recomendation/index.html')
-    context = {
-        'latestUserList' : latestUserList,
-        'receivedId' : playerId,
-    }
-    return HttpResponse(template.render(context, request))
+        # Create form instance and populate with data in the request
+        form = SignInForm(request.POST)
+
+        print(request.POST.get('summonerName'))
+        print(request.POST.get('region'))
+
+        # Check validity
+        if form.is_valid():
+            data = form.cleaned_data
+
+            id = getId(data["summonerName"], data["region"])
+
+            if id == False:
+                return render(request, 'recomendation/error.html', {'message':"invalid summoner name"})
+            else:
+                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id, 'champions':[getChampionData(data['region'], x) for x in champions]})
+
+        # If invalid redirect to error page
+        else:
+            return render(request, 'recomendation/error.html', {'message':"invalid form"})
+    else:
+        return render(request, 'recomendation/error.html', {'message':"request not post"})
