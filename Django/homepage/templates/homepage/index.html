@@ -90,7 +90,7 @@
                     <div class="carousel-caption">
                         <h1>Dominate the competition.</h1>
                         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#login">Sign up today</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="#login">See my recomendations!</a></p>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                     <div class="carousel-caption">
                         <h1>Powered by machine learning.</h1>
                         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#login">Sign up today</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="#login">See my recomendations!</a></p>
                     </div>
                 </div>
             </div>
@@ -134,17 +134,24 @@
 
         <!-- User login -->
         <div id="login">
-            <ul id="myTab" class="nav nav-tabs ">
-                <li class="active"><a href="#signIn" data-toggle="tab">Sign In</a></li>
-                <li><a href="#why" data-toggle="tab">Why?</a></li>
+
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#input" data-toggle="tab">Sign In</a></li>
+                <li class=""><a href="#why" data-toggle="tab">Why?</a></li>
             </ul>
 
             <div id="myTabContent" class="tab-content">
-                <!-- Sign In Form -->
-                <div class="tab-pane fade in active" id="signIn">
+                <div class="tab-pane fade in" id="why">
                     <br><br>
-                    <form class="form-horizontal" action="/recomendation/" method="post">
-                        {% csrf_token %}
+                    <p>We require your summoner id to receive access to your summoner statistics through de <b>official Riot API</b>. This includes information such as number of games won, number of enemies killed, etc., and <b>does not</b> include sensitive information, such as your account password.</p>
+                    <p></p><br> Please contact <a mailto:href="sut@spot.com"></a>sut@spot.com</a> for further help.</p>
+                </div>
+
+                <!-- Sign In Form -->
+                <div class="tab-pane fade in active" id="input">
+                    <br><br>
+                    <form class="form-horizontal" action="/recomendation/" method="post"> {% csrf_token %}
+
                         <!-- Summoner name input-->
                         <div class="control-group">
                             <label class="control-label" for="summonerName">Summoner name:</label>
@@ -153,10 +160,11 @@
                             </div>
                         </div>
 
+                        <!-- Region input -->
                         <div class="control-group">
-                            <label class="control-label" for="userRegion">Region:</label>
+                            <label class="control-label" for="region">Region:</label>
                             <div class="controls">
-                                <select requi id="region">
+                                <select id="region" name="region" class="form-control" >
                                     {% for region in regions %}
                                     <option value='{{region}}'>{{region}}</option>
                                     {% endfor %}
@@ -164,23 +172,17 @@
                             </div>
                         </div>
 
-                        <!-- Button -->
+                        <!-- Submit button -->
                         <div class="control-group">
-                            <label class="control-label" for="signIn"></label>
+                            <label class="control-label" for="submit"></label>
                             <div class="controls">
-                                <button id="signIn" name="signIn" class="btn btn-lg btn-primary">Get Predictions!</button>
+                                <button id="submit" name="submit" class="btn btn-lg btn-primary">Get recomendation</button>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                <div class="tab-pane fade" id="why">
-                    <br><br>
-                    <p>Werequire your summoner id to receive access to your summoner statistics through de <b>official Riot API</b>. This includes information such as number of games won, number of enemies killed, etc., and <b>does not</b> include sensitive information, such as your account password.</p>
-                    <p></p><br> Please contact <a mailto:href="sut@spot.com"></a>sut@spot.com</a> for further help.</p>
-                </div>
             </div>
-        </div>
+        <div>
 
         <!-- START THE FEATURETTES -->
 

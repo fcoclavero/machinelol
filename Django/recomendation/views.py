@@ -15,9 +15,13 @@ def recomendation(request):
         # Create form instance and populate with data in the request
         form = SignInForm(request.POST)
 
+        print(request.POST.get('summonerName'))
+        print(request.POST.get('region'))
+
         # Check validity
         if form.is_valid():
             data = form.cleaned_data
+
             id = getId(data["summonerName"], data["region"])
 
             if id == False:
