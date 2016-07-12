@@ -1,0 +1,22 @@
+{
+  "name": "Machine Lol",
+  "homepage": "https://github.com/fcoclavero/machinelol",
+  "description": "Champion recomendations using machine learning.",
+  "main": "",
+  "authors": [
+    "Francisco Clavero",
+    "Vicente Oyanedel"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "jquery": "1.9.1 - 2"
+  }
+}

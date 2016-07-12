@@ -1,0 +1,11 @@
+<p>Received id: {{ receivedId }}
+
+{% if latestUserList %}
+    <ul>
+    {% for user in latestUserList %}
+        <li><a href="/recomendation/{{ user.id }}/">{{ user.playerId }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users available.</p>
+{% endif %}
