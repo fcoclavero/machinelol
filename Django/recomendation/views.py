@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import User
+from .models import LasUser
 from .forms import SignInForm
 
 from recomendation.utilities import *
@@ -13,7 +13,7 @@ def recomendation(request):
         champions = (79,222,268,105,201)
 
         # Create form instance and populate with data in the request
-        form = SignInForm(request.POST)
+    latestUserList = LasUser.objects.order_by('-registrationDate')[:5]
 
         print(request.POST.get('summo'))
         print(request.POST.get('region'))
