@@ -1,6 +1,7 @@
-from math import sqrt,log
 import json
-from getChampionIdList import getChampionIds
+
+from math import sqrt, log
+from recomendation._getChampionIdList import getChampionIds
 
 
 
@@ -10,12 +11,12 @@ from getChampionIdList import getChampionIds
         "totalChampionKills", "totalSessionsLost"
     '''
 
-
 class recomenderSystem:
-    ''' recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...} correspondiente a un cluser de usuarios y permite generar distintos tipos de recomendaciones'''
-    def __init__(self, sourceFile="C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data/workspace/result.json"):
+    """ recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...} correspondiente a un cluser de usuarios y una id de usuario.
+		permite generar distintos tipos de recomendaciones"""
+    def __init__(self, sourceDict):
         # Source file created by getChampionsDataFromIdArray.py
-        self.sourceFile = sourceFile
+        self.sourceDict = sourceDict
         self.championIdList = getChampionIds()
 
         # Metadata
@@ -26,17 +27,20 @@ class recomenderSystem:
 
         # create output total dictionary
         self.totalDict = {}
+        #
+        # # Open source file
+        # try:
+        #     with open(self.sourceFile) as readfile:
+        #         try:
+        #             self.data = json.load(readfile)
+        #         except IOError:
+        #             print("Error loading json")
+        #
+        # except IOError:
+        #     print("Error in source file.")
 
-        # Open source file
-        try:
-            with open(self.sourceFile) as readfile:
-                try:
-                    self.data = json.load(readfile)
-                except IOError:
-                    print("Error loading json")
 
-        except IOError:
-            print("Error in source file.")
+        self.data = sourceDict
 
         # Init output dicts, also count the number of masteries and ranked stats per champion (saved in metadataDict)
         for champId in self.championIdList:
@@ -50,17 +54,18 @@ class recomenderSystem:
             rankedEntryNumber = 0
             for playerId in self.data:
                 try:
-                    self.data[playerId][unicode(champId)][u'championPoints']
+                    self.data[playerId][champId]['championPoints']
                     masteryEntryNumber += 1
                 except KeyError:
                     pass
 
                 try:
-                    self.data[playerId][unicode(champId)][u'totalSessionsWon']
+                    self.data[playerId][champId]['totalSessionsWon']
                     rankedEntryNumber += 1
                 except KeyError:
                     try:
-                        self.data[playerId][unicode(champId)][u'totalSessionsLost']
+                        # If totalSessionWon isn't found try to found totalSessionLost, if it's found it'd be strange.
+                        self.data[playerId][champId]['totalSessionsLost']
                         print ("Something strange happened")
                         rankedEntryNumber += 1
                         pass
@@ -86,7 +91,7 @@ class recomenderSystem:
             ## Iterate over every player in the source file
             for playerId in self.data:
                 try:
-                    champTotalChampionPoints += self.data[playerId][unicode(champId)][u'championPoints']
+                    champTotalChampionPoints += self.data[playerId][champId]['championPoints']
                 except KeyError:
                     continue
             self.totalDict[champId]['championPoints'] = champTotalChampionPoints
@@ -105,14 +110,25 @@ class recomenderSystem:
             ## Iterate over every player in the source file
             for playerId in self.data:
                 try:
-                    champTotalAssists += self.data[playerId][unicode(champId)][u'totalAssists']
-                    champTotalDeaths += self.data[playerId][unicode(champId)][u'totalDeathsPerSession']
-                    champTotalKills += self.data[playerId][unicode(champId)][u'totalChampionKills']
-                    champTotalSessionsWon += self.data[playerId][unicode(champId)][u'totalSessionsWon']
-                    champTotalSessionsLost += self.data[playerId][unicode(champId)][u'totalSessionsLost']
-
+                    champTotalAssists += self.data[playerId][champId]['totalAssists']
                 except KeyError:
-                    continue
+                    pass
+                try:
+                    champTotalDeaths += self.data[playerId][champId]['totalDeathsPerSession']
+                except KeyError:
+                    pass
+                try:
+                    champTotalKills += self.data[playerId][champId]['totalChampionKills']
+                except KeyError:
+                    pass
+                try:
+                    champTotalSessionsWon += self.data[playerId][champId]['totalSessionsWon']
+                except KeyError:
+                    pass
+                try:
+                    champTotalSessionsLost += self.data[playerId][champId]['totalSessionsLost']
+                except KeyError:
+                    pass
 
             self.totalDict[champId]['totalAssists'] = champTotalAssists
             self.totalDict[champId]['totalDeathsPerSession'] = champTotalDeaths
@@ -157,7 +173,7 @@ class recomenderSystem:
             kills = sourceDict[champId]['totalChampionKills']
             assists = sourceDict[champId]['totalAssists']
             deaths = sourceDict[champId]['totalDeathsPerSession']
-            auxDict[champId] = (kills + assists) / deaths if deaths != 0 else (kills + assists)/0.1
+            auxDict[champId] = ((kills + assists)*1.0) / deaths if deaths != 0 else ((kills + assists)*1.0)/0.1
         # Now sort the dict by kda (dict value)
         kdaRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
@@ -167,7 +183,7 @@ class recomenderSystem:
         for champId in sourceDict:
             wins = sourceDict[champId]['totalSessionsWon']
             loses = sourceDict[champId]['totalSessionsLost']
-            auxDict[champId] = wins / loses if loses != 0 else wins/0.1   # Now sort the dict by kda (dict value)
+            auxDict[champId] = (wins*1.0) / loses if loses != 0 else (wins*1.0)/0.1   # Now sort the dict by kda (dict value)
         wrRanking = sorted(auxDict, key=auxDict.__getitem__, reverse=True)
 
         # # Heuristic ranking creation
@@ -181,8 +197,8 @@ class recomenderSystem:
             assists = sourceDict[champId]['totalAssists']
             deaths = sourceDict[champId]['totalDeathsPerSession']
 
-            winrate = wins / loses if loses != 0 else wins/0.1
-            kda = (kills + assists) / deaths if deaths != 0 else (kills + assists)/0.1
+            winrate = (wins*1.0) / loses if loses != 0 else (wins*1.0)/0.1
+            kda = ((kills + assists)*1.0) / deaths if deaths != 0 else ((kills + assists)*1.0)/0.1
 
             return (alpha1 * log(cp)) + (alpha2 * kda) + (alpha3 * winrate) if cp!=0 else (alpha2 * kda) + (alpha3 * winrate)
 
@@ -197,7 +213,7 @@ class recomenderSystem:
 
     ## Given a playerid, returns a list of recomended champions that he'd like based on championPoints (Expierence).
     def collaborativeFiltering(self, player):
-        player = unicode(player)
+        # player = unicode(player)
 
         # Correlation function returns value between -1 to 1. Value of 1 means
         # same taste (Taste is measured by similar championPoints)
@@ -205,12 +221,12 @@ class recomenderSystem:
             # To get both played champions
             # A champion is played if user have 1000+ championpoints
             both_played = {}
-            for champion in data[player1]:
+            for champion in data[int(player1)]:
                 try:
-                    if data[player1][champion][u'championPoints'] > 1000:
+                    if data[player1][champion]['championPoints'] > 1000:
                         if champion in data[player2]:
                             try:
-                                if data[player2][champion][u'championPoints'] > 1000:
+                                if data[player2][champion]['championPoints'] > 1000:
                                     both_played[champion] = 1
                             except KeyError:
                                 # here if data[player2][champion][u'championPoints'] doesn't exist
@@ -226,16 +242,16 @@ class recomenderSystem:
                 return 0
 
             # Add up all the preferences of each player
-            player1_preferences_sum = sum([data[player1][champion][u'championPoints'] for champion in both_played])
-            player2_preferences_sum = sum([data[player2][champion][u'championPoints'] for champion in both_played])
+            player1_preferences_sum = sum([data[player1][champion]['championPoints'] for champion in both_played])
+            player2_preferences_sum = sum([data[player2][champion]['championPoints'] for champion in both_played])
 
             # Sum up the squares of preferences of each user
-            player1_square_preferences_sum = sum([pow(data[player1][champion][u'championPoints'], 2) for champion in both_played])
-            player2_square_preferences_sum = sum([pow(data[player2][champion][u'championPoints'], 2) for champion in both_played])
+            player1_square_preferences_sum = sum([pow(data[player1][champion]['championPoints'], 2) for champion in both_played])
+            player2_square_preferences_sum = sum([pow(data[player2][champion]['championPoints'], 2) for champion in both_played])
 
             # Sum up the product value of both preferences for each champion
-            product_sum_of_both_players = sum([data[player1][champion][u'championPoints'] *
-                                               data[player2][champion][u'championPoints'] for champion in both_played])
+            product_sum_of_both_players = sum([data[player1][champion]['championPoints'] *
+                                               data[player2][champion]['championPoints'] for champion in both_played])
 
             # Calculate the pearson score
             numerator_value = product_sum_of_both_players - (
@@ -277,13 +293,13 @@ class recomenderSystem:
             for champion in self.data[other_player]:
                 try:
                     # This shoud pass
-                    self.data[other_player][champion][u'championPoints']
+                    self.data[other_player][champion]['championPoints']
                     # only score champions i doesn't play a lot (6000+ is lvl 3 with the champion)
                     try:
-                        if self.data[player][champion][u'championPoints'] < 6000:
+                        if self.data[player][champion]['championPoints'] < 6000:
                             # Similrity * score
                             totals.setdefault(champion, 0)
-                            totals[champion] += self.data[other_player][champion][u'championPoints'] * sim
+                            totals[champion] += self.data[other_player][champion]['championPoints'] * sim
                             # sum of similarities
                             simSums.setdefault(champion, 0)
                             simSums[champion] += sim
@@ -291,7 +307,7 @@ class recomenderSystem:
                     except KeyError:
                         # Similrity * score
                         totals.setdefault(champion, 0)
-                        totals[champion] += self.data[other_player][champion][u'championPoints'] * sim
+                        totals[champion] += self.data[other_player][champion]['championPoints'] * sim
                         # sum of similarities
                         simSums.setdefault(champion, 0)
                         simSums[champion] += sim
