@@ -2,13 +2,14 @@
 
 El paquete contiene:
 
-	..* /Data: Carpeta con datos necesarios para el funcionamiento.
-	..* /Django: Framework y base de datos.
+	* /Data: Carpeta con datos necesarios para el funcionamiento.
+	* /Django: Framework y base de datos.
 
 Primero configure los path de los datos en los siguientes scripts, segun donde ubique la carpeta /Data incluida con este paquete:
 Ej: C:/users/vicho/bin/Data
 
 [ Perdon por esto :( ]
+
 Django\recomendation\_getChampionIdList.py in getChampionIds, line 6
 Django\recomendation\_getChampionsDataFromIdArray.py in main, line 21
 Django\recomendation\utilites.py in -, line 18
@@ -28,8 +29,8 @@ La base de datos (db.sqlite3) viene con 1000 datos aproximadamente.
 
 Como usar:
 
-	..* Abrir CMD y ubicarse en /bin/Django
-	..* Tiene dos opciones para ejecutar la recomendacion: 
+	* Abrir CMD y ubicarse en /bin/Django
+	* Tiene dos opciones para ejecutar la recomendacion: 
 	
 	(Ver video YouTube)
 	A. Ejecutar desde shell
@@ -52,6 +53,8 @@ Como usar:
 
 Cualquier duda envíe un correo a vicenteoyanedel@gmail.com o fcoclavero32@gmail.com.
 Podemos coordinar una prueba o lo puedo ayudar a solucionar algun problema.
+
+-----------------------------------------------------------------------------------------------------------
 
 Problemas:
 	1. Al usar populate_db me sale muchas veces Processing user <id>: El user <id> no tiene estadisticas de ranked por lo que es rechazado. 
