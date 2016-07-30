@@ -67,18 +67,18 @@ class Command(BaseCommand):
         cfRanking = rsys.collaborativeFiltering(id)
 
         idToName = itn(dataDirectory)
-        # print("Champion points ranking: ")
-        # print(idToName.convert(cpRanking))
-        # print(" kda ranking: ")
-        # print(idToName.convert(kdaRanking))
-        # print(" winrate ranking: ")
-        # print(idToName.convert(wrRanking))
-        # print(" heuristic ranking: ")
-        # print(idToName.convert(hRanking))
-        # print("Colaborative filtering ranking: ")
-        # print(idToName.convert(cfRanking))
+        print("Champion points ranking: ")
+        print(idToName.convert(cpRanking))
+        print(" kda ranking: ")
+        print(idToName.convert(kdaRanking))
+        print(" winrate ranking: ")
+        print(idToName.convert(wrRanking))
+        print(" heuristic ranking: ")
+        print(idToName.convert(hRanking))
+        print("Colaborative filtering ranking: ")
+        print(idToName.convert(cfRanking))
 
-        return {'Champion Mastery Ranking': cpRanking, 'KDA Ranking': kdaRanking, 'Winrate Ranking': wrRanking,
-              'Heuristic ranking': hRanking, 'Colaborative Filtering Ranking': cfRanking}
+        #return {'Champion Mastery Ranking': cpRanking, 'KDA Ranking': kdaRanking, 'Winrate Ranking': wrRanking,
+        #     'Heuristic ranking': hRanking, 'Colaborative Filtering Ranking': cfRanking}
 
 
