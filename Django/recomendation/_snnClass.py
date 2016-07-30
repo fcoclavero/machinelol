@@ -9,7 +9,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.preprocessing import StandardScaler
 
 class SNN:
-    def __init__(self, data, k, eps, min_pts):
+    def __init__(self, data, k, eps, min_pts=5):
         # Get list of point id's
         self.ids = data["id"].values
 
@@ -65,7 +65,7 @@ class SNN:
 
             if len(knn) == k:
                 sparsified.append(knn)
-            else: raise ValueError("Length of nearest neighbor array is " + len(knn) + ", expected " + k)
+            else: raise ValueError("Length of nearest neighbor array is " + str(len(knn)) + ", expected " + str(k))
 
         return(sparsified)
 

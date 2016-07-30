@@ -1,22 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from dataParser import *
-from getChampionIdList import getChampionIds
+from recomendation._newDataParser import *
+from recomendation._getChampionIdList import getChampionIds
 
 # Parameters
 # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
 
 
-''' Extracts user information from a userId array referent to champions '''
 def main(idArray):
+    """ Extracts users champion information from a userId array for recomendations.
+    @return: Dict of the form {userID: {champ1: {characteristics}, ...}, ...}"""
+
     aux = idArray
     idArray = []
     for id in aux:
         idArray.append(int(id))
 
     regions = ["las"]
-    dataDirectory = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data/"
+    dataDirectory = "C:/Users/fcocl_000/Documents/Data"
     dataSize = 1000
 
     ''' First extracts player championMastery stats '''
@@ -36,7 +38,7 @@ def main(idArray):
     dataParser.characteristics = rankedCharacteristics
 
     # Get a list of dicts {'champ': data} for each user; where data is a dict of characteristics.
-    playerRankedStatsDict = dataParser.parseChampionRankedStatsByIdArray(idArray, 2015)
+    playerRankedStatsDict = dataParser.parseChampionRankedStatsByIdArray(idArray, 2016)
 
     championIdList = getChampionIds()
 
@@ -70,7 +72,9 @@ def main(idArray):
         if characteristicsCounter == 0:
             del playerDict[userId]
 
-    jstr = json.dumps(playerDict, indent=4)
-    with open('result.json', 'w') as fp:
-        print >> fp, jstr
-        fp.close()
+    # jstr = json.dumps(playerDict, indent=4)
+    # with open('result.json', 'w') as fp:
+    #     print >> fp, jstr
+    #     fp.close()
+
+    return playerDict

@@ -1,11 +1,282 @@
-<p>Received id: {{ receivedId }}
+{% load staticfiles %}
 
-{% if latestUserList %}
-    <ul>
-    {% for user in latestUserList %}
-        <li><a href="/recomendation/{{ user.id }}/">{{ user.playerId }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No users available.</p>
-{% endif %}
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://getbootstrap.com/examples/carousel/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'global/images/favicon.ico' %}">
+
+    <title>Machinelol - Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'global/Carousel Template/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'global/Carousel Template/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{% static 'global/Carousel Template/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'global/Carousel Template/carousel.css' %}" rel="stylesheet">
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+    <div class="navbar-wrapper">
+        <div class="container">
+
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'homepage_index' %}">Machinelol</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="{% url 'homepage_index' %}">Home</a></li>
+                            <li><a href="{% url 'homepage_index' %}#about">About</a></li>
+                            <li><a href="{% url 'homepage_index' %}">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="{% url 'homepage_index' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'homepage_index' %}#">Action</a></li>
+                                    <li><a href="{% url 'homepage_index' %}">Another action</a></li>
+                                    <li><a href="{% url 'homepage_index' %}">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Nav header</li>
+                                    <li><a href="{% url 'homepage_index' %}">Separated link</a></li>
+                                    <li><a href="{% url 'homepage_index' %}">One more separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing" id="about">
+
+        <!-- Title -->
+        <h2 class="featurette-heading">Results:</h2></br>
+
+        <!-- Account details -->
+        <h3>Summoner name: <small>{{summonerName}}</small></h4>
+        <h3>Summoner id: <small>{{id}}</small></h4>
+        <h3>Region: <small>{{region}}</small></h4>
+
+        <!-- Result display for each type of recomendation -->
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <h2>Winrate</h2>
+                <img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{ recomendation.winrate.0.name }}_0.jpg" alt="Generic placeholder image" width="154" heigth="280">
+                <h2>{{ recomendation.winrate.0.name }}</h2>
+                <p>{{ recomendation.winrate.0.title }}</p>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#detailsModal0">View details</button>
+                <!-- Details modal -->
+                <div id="detailsModal0" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Details</h4>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modalText">Ranking de los campeones que ganan más partidas de las que pierden.</p>
+                                <h4>Otros campeones recomendados:</h4>
+                                {% for champion in recomendation.winrate %}
+                                    <p>{{ champion.name }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <h2>KDA</h2>
+                <img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{ recomendation.kda.0.name }}_0.jpg" alt="Generic placeholder image" width="154" heigth="280">
+                <h2>{{ recomendation.kda.0.name }}</h2>
+                <p>{{ recomendation.kda.0.title }}</p>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#detailsModal1">View details</button>
+                <!-- Details modal -->
+                <div id="detailsModal1" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Details</h4>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modalText">Ranking de los campeones más participativos.</p>
+                                <h4>Otros campeones recomendados:</h4>
+                                {% for champion in recomendation.kda %}
+                                    <p>{{ champion.name }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+
+        </div><!-- /.row -->
+
+        <br>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Champion Mastery</h2>
+                <img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{ recomendation.mastery.0.name }}_0.jpg" alt="Generic placeholder image" width="154" height="280">
+                <h2>{{ recomendation.mastery.0.name }}</h2>
+                <p>{{ recomendation.mastery.0.title }}</p>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#detailsModal2">View details</button>
+                <!-- Details modal -->
+                <div id="detailsModal2" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Details</h4>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modalText">Ranking de los campeones con más experiencia.</p>
+                                <h4>Otros campeones recomendados:</h4>
+                                {% for champion in recomendation.mastery %}
+                                    <p>{{ champion.name }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <h2>Collaborative Filtering</h2>
+                <img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{ recomendation.colaborative.0.name }}_0.jpg"alt="Generic placeholder image" width="154" heigth="280">
+                <h2>{{ recomendation.colaborative.0.name }}</h2>
+                <p>{{ recomendation.colaborative.0.title }}</p>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#detailsModal3">View details</button>
+                <!-- Details modal -->
+                <div id="detailsModal3" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Details</h4>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modalText">Ranking personalizado basado en los campeones que maestrizan jugadores similares a ti.</p>
+                                <h4>Otros campeones recomendados:</h4>
+                                {% for champion in recomendation.colaborative %}
+                                    <p>{{ champion.name }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <h2>Heuristic</h2>
+                <img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{ recomendation.heuristic.0.name }}_0.jpg" alt="Generic placeholder image" width="154" heigth="280">
+                <h2>{{ recomendation.heuristic.0.name }}</h2>
+                <p>{{ recomendation.heuristic.0.title }}</p>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#detailsModal4">View details</button>
+                <!-- Details modal -->
+                <div id="detailsModal4" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Details</h4>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modalText">Ranking mixto que congrega los 3 rankings anteriores en uno sólo.</p>
+                                <h4>Otros campeones recomendados:</h4>
+                                {% for champion in recomendation.heuristic %}
+                                    <p>{{ champion.name }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+        <!-- FOOTER --
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>© 2016 SUT, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'global/Carousel Template/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'global/Carousel Template/bootstrap.min.js' %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{% static 'global/Carousel Template/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'global/Carousel Template/ie10-viewport-bug-workaround.js' %}"></script>
+
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg></body></html>

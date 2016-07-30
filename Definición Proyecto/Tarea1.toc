@@ -1,12 +1,12 @@
 \select@language {spanish}
 \contentsline {section}{\numberline {1}Descripci\IeC {\'o}n Detallada del Proyecto}{3}{section.1}
 \contentsline {subsection}{\numberline {1.1}Collaborative Filtering}{4}{subsection.1.1}
-\contentsline {subsubsection}{\numberline {1.1.1}1 Paso}{4}{subsubsection.1.1.1}
-\contentsline {subsubsection}{\numberline {1.1.2}2 Paso}{5}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.1}Paso 1}{4}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Paso 2}{5}{subsubsection.1.1.2}
 \contentsline {subsection}{\numberline {1.2}Ranking Champion Points, KDA, WinRate y Heuristico}{5}{subsection.1.2}
 \contentsline {section}{\numberline {2}Alcances del Proyecto}{6}{section.2}
-\contentsline {section}{\numberline {3}Rol Espec\IeC {\'\i }fico de cada Integrante}{7}{section.3}
-\contentsline {section}{\numberline {4}Metodolog\IeC {\'\i }a}{7}{section.4}
-\contentsline {section}{\numberline {5}Link github}{7}{section.5}
-\contentsline {section}{\numberline {6}Avances}{7}{section.6}
-\contentsline {section}{\numberline {7}Instrucciones}{8}{section.7}
+\contentsline {section}{\numberline {3}Rol Espec\IeC {\'\i }fico de cada Integrante}{8}{section.3}
+\contentsline {section}{\numberline {4}Metodolog\IeC {\'\i }a}{8}{section.4}
+\contentsline {section}{\numberline {5}Link github}{8}{section.5}
+\contentsline {section}{\numberline {6}Avances}{9}{section.6}
+\contentsline {section}{\numberline {7}Instrucciones de Uso}{10}{section.7}
