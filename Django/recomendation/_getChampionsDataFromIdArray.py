@@ -18,7 +18,7 @@ def main(idArray):
         idArray.append(int(id))
 
     regions = ["las"]
-    dataDirectory = "C:/Users/fcocl_000/Documents/Data"
+    dataDirectory = "C:/Users/Vichoko/bin/Data"
     dataSize = 1000
 
     ''' First extracts player championMastery stats '''

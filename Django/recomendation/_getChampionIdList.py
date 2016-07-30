@@ -2,8 +2,8 @@ import json
 
 def getChampionIds():
     array = []
-    dir = "C:/Users/fcocl_000/Documents/Data/ChampionData"
-    with open(dir + "/las.json") as readfile:
+    dir = "C:/Users/Vichoko/bin/Data"
+    with open(dir + "/ChampionData/las.json") as readfile:
         try:
             data = json.load(readfile)['data']
         except IOError:

@@ -11,7 +11,7 @@ import pandas as pd
 import random
 
 
-dataDirectory = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data"
+dataDirectory = "C:/Users/Vichoko/bin/Data"
 
 # Caracteristicas sobre las cual se hara el clustering. Fijarse que esten incluidas en poblate_db.py Line 12 i.e. en la BD
 # Realmente
@@ -78,7 +78,7 @@ class Command(BaseCommand):
         print("Colaborative filtering ranking: ")
         print(idToName.convert(cfRanking))
 
-        #return {'Champion Mastery Ranking': cpRanking, 'KDA Ranking': kdaRanking, 'Winrate Ranking': wrRanking,
-        #     'Heuristic ranking': hRanking, 'Colaborative Filtering Ranking': cfRanking}
+        # return {'Champion Mastery Ranking': cpRanking, 'KDA Ranking': kdaRanking, 'Winrate Ranking': wrRanking,
+              # 'Heuristic ranking': hRanking, 'Colaborative Filtering Ranking': cfRanking}
 
 
