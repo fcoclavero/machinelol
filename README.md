@@ -1,6 +1,7 @@
 # machinelol
 
 El paquete contiene:
+
 	..* /Data: Carpeta con datos necesarios para el funcionamiento.
 	..* /Django: Framework y base de datos.
 
@@ -26,6 +27,7 @@ La base de datos (db.sqlite3) viene con 1000 datos aproximadamente.
 !!!
 
 Como usar:
+
 	..* Abrir CMD y ubicarse en /bin/Django
 	..* Tiene dos opciones para ejecutar la recomendacion: 
 	
