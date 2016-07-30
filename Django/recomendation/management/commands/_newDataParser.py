@@ -49,17 +49,19 @@ class DataParser:
                     with open(dir + fileDir, "r") as readfile:
                         print (dir + fileDir)
                         # load data onto dict
-                        try:
-                            data = json.load(readfile)['playerStatSummaries']
-                        except:
-                            raise KeyError("No se encontro sujeto de recomendacion en summary.")
+                        #try:
+                        data = json.load(readfile)['playerStatSummaries']
+                        #except:
+                        #    raise KeyError
 
                 else:
                     with open(dir + fileDir, "r") as readfile:
                         # load data onto dict
-                        data = json.load(readfile)['playerStatSummaries']
-                        log.write(pid)
-
+                        try:
+                            data = json.load(readfile)['playerStatSummaries']
+                            log.write(pid)
+                        except:
+                            continue
 
                 # Check if file contains match data
                 normalIndex = self.typeIndex(data, "Unranked")

@@ -1,0 +1,11 @@
+1. Eliminar archivo /Django/db.sqlite3
+2. Eliminar archivo /Django/logs/log_j2dlas.txt
+
+2. Ejecutar en cmd:
+	python manage.py makemigrations
+	python manage.py migrate
+3. Obtendra BD vacía. 
+
+4. Ejecutar 'python manage.py poblate_db 21685 1000' para poblar la base de datos con suficientes usuarios para el clustering.
+(La ud 21685 puede ser cualquier id valida)
+	

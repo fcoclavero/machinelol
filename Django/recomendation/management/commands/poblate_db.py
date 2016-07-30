@@ -16,7 +16,7 @@ class Command(BaseCommand):
         characteristics = ["wins", "totalChampionKills"]
         # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
         regions = ["las"]
-        dataDirectory = "C:/Users/Vichoko/Documents/GitHub/machinelol/machinelol/Data"
+        dataDirectory = "C:/Users/Vichoko/bin/Data"
         dataSize = options['ndata']
 
         playerid, playerregion = (options['player_id'], "las")
