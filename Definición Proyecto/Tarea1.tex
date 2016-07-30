@@ -188,40 +188,25 @@ utilizará GitHub.
 
 \section{Link github}
 \url{https://github.com/fcoclavero/machinelol}
+
 \section{Avances}
 A partir de los 163000 usuarios extraidos de la API, se programó un parser que exporta una cantidad variable de estos usuarios a usa base de datos SQLite, almacenando parte de sus caracteristicas primarias como usuarios (TotalChampionKills, TotalDeaths, etc). En particular, el sistema creado provee una forma de cargar cualquier usuario en la base de datos para testear.\\
-\\
-Se programó clustering... (Clavero llena aqui)\\
-\\
+
+Para poder encontrar usuarios similiares a aquel que solicita la recomendación se realiza un paso de clustering sobre los datos. Debido a la gran cantidad de usuarios a los que se tienen acceso gracias a la API, primero se obtiene una muestra aleatoria reducida de estos, con el fin de agilizar el procesamiento de los datos. Esto es de especial importancia pensando en un front-end web. \\
+
+Los datos que se tienen de los usuarios, como número promedio de kills, assists, deaths, o minion kills por partida tienen la particularidad de que una menor cantidad de usuarios tiene métricas más altas. Esto provoca una diferencia importante de densidad de puntos en el espacio de características. La densidad variable hace que algorítmos normales de clustering (como K-Means o DBSCAN) produzcan clusterings inadecuados, tomando, por ejemplo, a los puntos mas lejanos al origen (jugadores mejores) como outliers en el caso de DBSCAN, o clusterings con poco sentido, como el en el caso de K-Means. \\
+
+Por esta razón se decide utilizar el algoritmo de Jarvis-Patrick ["Finding Clusters of Different Sizes, Shapes and Densities in Noisy, High Dimensional Data"; Ertöz, Steinbach, Kumar; February 20, 2003], basado en el grafo de Similar Nearest Neighbors (SNN), el cual se implementa desde cero. En este algoritmo se cambia la medida de similitud entre puntos, de la distancia eucilidiana (como en los ejemplos de otros algoritmos mencionados anteriormente), a una basada en la cantidad de vecinos similares que se comparten. Esto permite encontrar clusters de densidad variable, lo cual se ajusta más a los tipos de grupos que se pueden encontrar en los datos. \\
+
+El primer paso del algoritmo consiste en generar un clique con todos los puntos. Luego se mantenien únicamente en cada punto las aristas a los k vecinos más cercanos. Después, la matriz de adyacencia del grafo se "sparcifica", visitando cada vertice y manteniendo las aristas con los puntos que compartan al menos epsilon vecinos cercanos con el punto visitado. Luego se generan clusters a cada componente conexa del gráfo, dejando a los puntos aislados como "outliers". \\
+
 Se programo el sistema de recomendación que, dado un usuario sujeto, en primer lugar toma N datos aleatorios de la base de datos (incluido el sujeto), y ejecuta el algoritmo de Clustering, posteriormente, se obtiene la lista de usuarios que pertenecen al cluster del sujeto. Con ésta lista, mediante el parser se extrae información relativa a los campeones que usa cada usuario del cluster, para luego ejecutar el 'Colaborative Filtering' y crear los 4 rankings, y entregarlos en pantalla.\\
 \\
 Además se diseñó un front-end web para probar el sistema ingresando un nombre de usuario de League of Legends, y después de ejecutar el clustering y los scripts de recomendacion entrega las 5 recomendaciones de campeones.
+
 \section{Instrucciones}
-El proyecto consiste de 2 scripts fundamentales de Python. El primero carga en la base de datos a un usuario sujeto dado. El segundo ejecuta el algoritmo de clustering, extrae la lista de usuarios vecinos al sujeto (cluster) y crea las recomendaciones para ese sujeto basado en los datos de los usuarios del cluster.\\
 
-El algoritmo de clustering está contenido en \texttt{\_snnClass.py}, el sistema de recomendaciones está en\texttt{\_recomendationSystem.py}; el resto de los archivos corresponden a modulos creados con fines de parsear los datos entregados por la API a distintas estructuras de datos (\texttt{\_getChampionIdList.py}, \texttt{\_getChampionsDataFromIdArray.py}, \texttt{\_newDataParser.py}).\\
-
-Dada la complejidad de los scripts, se diseñó un front-end web que ejecuta los scripts de la forma que se menciona en el primer parrafo de esta seccion.\\
-
-El problema fundamental de manejar los scripts manualmente es que depende de la base de datos que provee Django, y que estén seteados correctamente varios path que dirigen a los datos; para exportarlos correctamente a Django. Se incluirán los archivos para hacer funcionar los scripts pero necesariamente hay que configurar algunos path y dirigirlos a algunos datos de prueba.
-
-La forma de probarlo es:
-\begin{itemize}
-	\item Abrir la pagina web del proyecto.
-	\item Ingresar un nombre de usuario de League of Legends.
-	\item Esperar a que se ejecute el Clustering sobre la base de datos, y que se creen las 5 recomendaciones.
-	\item Observar en pantalla las distintas recomendaciones de campeones.
-	contenidos...
-\end{itemize}
-
-La pagina web está hosteada en un Notebook personal por lo que no puede estar en linea 24/7.
-Idealmente podríamos hacer una coordinación para asegurar que el sistema esté arriba para cuando se deseen hacer las pruebas o hacer una demostración presencial.\\
-
-
-
-
-
-
+En el archivo readme.
 
 % ============= FIN DE DOCUMENTO ==============
 \end{document}
