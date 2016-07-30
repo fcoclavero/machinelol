@@ -29,7 +29,7 @@ La base de datos (db.sqlite3) viene con 1000 datos aproximadamente.
 
 Como usar:
 
-	* Abrir CMD y ubicarse en /bin/Django
+	* Abrir CMD y ubicarse en /Django
 	* Tiene dos opciones para ejecutar la recomendacion: 
 	
 	(Ver video YouTube)
