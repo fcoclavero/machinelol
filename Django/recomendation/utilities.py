@@ -10,6 +10,7 @@ from recomendation._recomendationSystem import recomenderSystem
 from recomendation._champIdToName import idToName as itn
 from recomendation._newDataParser import DataParser
 from recomendation._snnClass import SNN
+from recomendation._getPlayerDataOnDemand import getPlayerData
 
 # Estas son las caracteriticas que se incluiran en la base de datos. El resto de las caracteristicas quedan con NULL en sus valores.
 
@@ -33,6 +34,9 @@ def getChampionData(region, id):
     return data.json()
 
 def getRecomendation(playerId, playerRegion, dataSize = 10):
+    # Update/add player id data to data folder
+    getPlayerData(playerId, dataDirectory)
+
     populateDb(playerId, playerRegion, dataSize)
 
     return recomendation(playerId)
