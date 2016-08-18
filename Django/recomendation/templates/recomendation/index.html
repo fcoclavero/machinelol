@@ -24,7 +24,11 @@
     <!-- Recomendation data request scripts -->
     <script src="{% static 'recomendation/recomendation.js' %}"></script>
 
+    <!-- jQuery -->
     <script src="{% static 'global/Carousel Template/jquery.min.js' %}"></script>
+
+    <!-- Javascript Cookie Library -->
+    <script src="{% static 'global/js.cookie.js' %}"></script>
 </head>
 
 <!-- NAVBAR ================================================== -->
@@ -256,7 +260,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>Your results are being generated.</h1><br>
-                    <p>A lot of data is being processed. Please be patient.</p>
+                    <p id="dialogContent">A lot of data is being processed. Please be patient.</p>
                 </div>
                 <div class="modal-body">
                     <div class="progress">
@@ -283,26 +287,54 @@
 
     <!-- Loading dialog activation/deactivation -->
     <script>
+        // Check if HTTP method requires CSRF protection
+        function csrfSafeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        // Set header on AJAX request, protecting it being sent to other domains.
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
         // When document is fully rendered
         $(document).ready(function(){
+            $("#dialogContent").text("document ready");
+
+            // Show loading dialog modal
             $("#loadingDialog").modal('show');
 
+            // Get X-CSRFToken from the csrftoken cookie.
+            var csrftoken = Cookies.get('csrftoken');
+
+            $("#dialogContent").text("csrf cookie retrieved");
             // Make AJAX request and set featurette DOM elements contents for each recomendation type
-            $.getJSON("{% url 'homepage_index' %}", {playerId: '{{ id }}', region: '{{ region }}'}, function(data, jqXHR){
-                // For each recomendation type
-                $.each(data, function(key, value) {
-                    $("#" + key + "Name").text(value[0].name);
-                    $("#" + key + "Title").text(value[0].title);
-                    $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name + '_0.jpg');
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {playerId: '{{ id }}', region: '{{ region }}'},
+                cache: false,
+                success: function (data, status) {
+                    $("#dialogContent").text("ajax call");
 
-                    // for each champion in the ranking
-                    var content = "<ul>"
-                    $.each(value, function(champion) {
-                        content = content + ("<li>" + champion.name + "</li>")
+                    // For each recomendation type
+                    $.each(data, function(key, value) {
+                        $("#" + key + "Name").text(value[0].name);
+                        $("#" + key + "Title").text(value[0].title);
+                        $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name + '_0.jpg');
+
+                        // for each champion in the ranking
+                        var content = "<ul>"
+                        $.each(value, function(champion) {
+                            content = content + ("<li>" + champion.name + "</li>")
+                        });
+
+                        $("#" + key + "Ranking").html(content + "</ul>");
                     });
-
-                    $("#" + key + "Ranking").html(content + "</ul>");
-                });
+                }
             });
 
             // Hide loading dialog and show featurettes-
