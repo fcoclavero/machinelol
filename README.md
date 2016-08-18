@@ -5,18 +5,7 @@ El paquete contiene:
 	* /Data: Carpeta con datos necesarios para el funcionamiento.
 	* /Django: Framework y base de datos.
 
-Primero configure los path de los datos en los siguientes scripts, segun donde ubique la carpeta /Data incluida con este paquete:
-Ej: C:/users/vicho/bin/Data
-
-[ Perdon por esto :( ]
-
-Django\recomendation\_getChampionIdList.py in getChampionIds, line 6
-Django\recomendation\_getChampionsDataFromIdArray.py in main, line 21
-Django\recomendation\utilites.py in -, line 18
-Django\recomendation\management\commands\poblate_db.py, line 19
-Django\recomendation\management\commands\recommend_command.py, line 14
-Django\recomendation\management\commands\_getChampionIdList.py in getChampionIds, line 6
-Django\recomendation\management\commands\_getChampionsDataFromIdArray.py in main, line 21
+Primero configure los path de los datos en el archivo 'Django/recomendation/constants.py', según donde ubique la carpeta /Data incluida con este paquete:
 
 Una vez configurado los path ya puede ejecutar el algoritmo de recomendacion en su equipo.
 Esto es estrictamente necesario para el correcto funcionamiento.
