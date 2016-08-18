@@ -14,19 +14,19 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'global/Carousel Template/bootstrap.min.css' %}" rel="stylesheet">
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static 'global/Carousel Template/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'global/Carousel Template/carousel.css' %}" rel="stylesheet">
+
     <script src="{% static 'global/Carousel Template/ie-emulation-modes-warning.js' %}"></script>
 
     <!-- Recomendation data request scripts -->
     <script src="{% static 'recomendation/recomendation.js' %}"></script>
 
     <script src="{% static 'global/Carousel Template/jquery.min.js' %}"></script>
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'global/Carousel Template/carousel.css' %}" rel="stylesheet">
 </head>
+
 <!-- NAVBAR ================================================== -->
 <body>
     <div class="navbar-wrapper">
@@ -71,8 +71,7 @@
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing hiden" id="about">
+    <div class="container marketing hidden" id="about">
 
         <!-- Title -->
         <h2 class="featurette-heading">Results:</h2></br>
@@ -82,25 +81,8 @@
         <h3>Summoner id: <small>{{ id }}</small></h4>
         <h3>Region: <small>{{ region }}</small></h4>
 
-        <!-- Loading dialog -->
-        <div class="modal fade" role="dialog" id="loadingDialog" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1>Processing...</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="progress progress-striped active">
-                            <div class="bar" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Result display for each type of recomendation -->
-        <div class="row hidden" id="featurettes1">
+        <div class="row">
             <div class="col-lg-4 col-lg-offset-2">
                 <h2>Winrate</h2>
                 <img class="img-thumbnail" src="" id="winrateImage" alt="Champion portrait" width="154" heigth="280">
@@ -166,7 +148,7 @@
 
         <br>
 
-        <div class="row hidden" id="featurettes2">
+        <div class="row">
             <div class="col-lg-4">
                 <h2>Champion Mastery</h2>
                 <img class="img-thumbnail" src="" id="masteryImage" alt="Champion portrait" width="154" height="280">
@@ -259,36 +241,6 @@
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
-        <script>
-            // When document is fully rendered
-            $(document).ready(function(){
-                $("#loadingDialog").modal('show');
-
-                // Make AJAX request and set featurette DOM elements contents for each recomendation type
-                $.getJSON("{% url 'homepage_index' %}", {playerId: '{{ id }}', region: '{{ region }}'}, function(data, jqXHR){
-                    // For each recomendation type
-                    jQuery.each(data, function(key, value) {
-                        $("#" + key + "Name").text(value[0].name);
-                        $("#" + key + "Title").text(value[0].title);
-                        $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name + '_0.jpg');
-
-                        // for each champion in the ranking
-                        var content = "<ul>"
-                        jQuerry.each(value, function(champion) {
-                            content = content + ("<li>" + champion.name + "</li>")
-                        });
-
-                        $("#" + key + "Ranking").html(content + "</ul>");
-                    });
-
-                    // Hide loading dialog and show featurettes-
-                    $("#loadingDialog").modal('hide');
-                    $("#featurettes1").removeClass('hiden');
-                    $("#featurettes2").removeClass('hiden');
-                });
-            });
-        </script>
-
         <!-- FOOTER -->
         <footer>
             <p class="pull-right"><a href="#">Back to top</a></p>
@@ -297,6 +249,25 @@
 
     </div><!-- /.container -->
 
+    <!-- Loading dialog -->
+    <div class="modal fade" role="dialog" id="loadingDialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Your results are being generated.</h1><br>
+                    <p>A lot of data is being processed. Please be patient.</p>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%;">
+                            processing data ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -308,4 +279,36 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'global/Carousel Template/ie10-viewport-bug-workaround.js' %}"></script>
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg></body></html>
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
+
+    <!-- Loading dialog activation/deactivation -->
+    <script>
+        // When document is fully rendered
+        $(document).ready(function(){
+            $("#loadingDialog").modal('show');
+
+            // Make AJAX request and set featurette DOM elements contents for each recomendation type
+            $.getJSON("{% url 'homepage_index' %}", {playerId: '{{ id }}', region: '{{ region }}'}, function(data, jqXHR){
+                // For each recomendation type
+                $.each(data, function(key, value) {
+                    $("#" + key + "Name").text(value[0].name);
+                    $("#" + key + "Title").text(value[0].title);
+                    $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name + '_0.jpg');
+
+                    // for each champion in the ranking
+                    var content = "<ul>"
+                    $.each(value, function(champion) {
+                        content = content + ("<li>" + champion.name + "</li>")
+                    });
+
+                    $("#" + key + "Ranking").html(content + "</ul>");
+                });
+            });
+
+            // Hide loading dialog and show featurettes-
+            $("#loadingDialog").modal('hidden');
+            $("#about").removeClass('hidden');
+        });
+    </script>
+
+</body></html>
