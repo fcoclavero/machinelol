@@ -1,15 +1,7 @@
-import json
+import json, recomendation.constants
 
 from math import sqrt, log
 from recomendation._getChampionIdList import getChampionIds
-
-
-
-''' caracteristicas tomadas en cuenta:
-    ChampionMasteries: 'championPoints'
-    RankedStats:  "totalAssists", "totalDeathsPerSession", "totalSessionsWon",
-        "totalChampionKills", "totalSessionsLost"
-    '''
 
 class recomenderSystem:
     """ recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...} correspondiente a un cluser de usuarios y una id de usuario.

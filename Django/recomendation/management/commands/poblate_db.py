@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from recomendation.models import LasUser
 from _newDataParser import DataParser
 
-
+import recomendation.constants as constants
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -10,20 +10,13 @@ class Command(BaseCommand):
         parser.add_argument('ndata', type=int)
 
     def handle(self, *args, **options):
-
-        # characteristics = ["wins", "losses", "totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
-        # Estas son las caracteriticas que se incluiran en la base de datos. El resto de las caracteristicas quedan con NULL en sus valores.
-        characteristics = ["wins", "totalChampionKills"]
-        # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-        regions = ["las"]
-        dataDirectory = "C:/Users/Vichoko/bin/Data"
         dataSize = options['ndata']
 
         playerid, playerregion = (options['player_id'], "las")
         print(dataSize)
         print(playerid)
         # Create a new DataParser Object
-        dataParser = DataParser(characteristics, regions, dataDirectory, dataSize, playerid, playerregion)
+        dataParser = DataParser(constants.characteristics, constants.regions, constants.dataDirectory, constants.dataSize, playerid, playerregion)
 
         # #######################################################
         # #                 Player Summary                  #

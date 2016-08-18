@@ -4,9 +4,7 @@ import numpy as np
 from recomendation._newDataParser import *
 from recomendation._getChampionIdList import getChampionIds
 
-# Parameters
-# regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-
+import recomendation.constants as constants
 
 def main(idArray):
     """ Extracts users champion information from a userId array for recomendations.
@@ -17,10 +15,6 @@ def main(idArray):
     for id in aux:
         idArray.append(int(id))
 
-    regions = ["las"]
-    dataDirectory = "C:/Users/Vichoko/bin/Data"
-    dataSize = 1000
-
     ''' First extracts player championMastery stats '''
     # Relevant characteristics for masteries
     masteryCharacteristics = ["championPoints"]
@@ -28,7 +22,7 @@ def main(idArray):
                                   'totalSessionsWon', 'totalSessionsLost']
 
     # Create a new DataParser Object
-    dataParser = DataParser(masteryCharacteristics, regions, dataDirectory, dataSize)
+    dataParser = DataParser(masteryCharacteristics, constants.regions, constants.dataDirectory, constants.dataSize)
 
     # Get a list of dicts {'champ': data} for each user; where data is a dict of characteristics.
     playerMasteryDict = dataParser.parseChampionMasteryByIdArray(idArray)

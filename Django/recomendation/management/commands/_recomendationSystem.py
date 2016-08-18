@@ -2,17 +2,14 @@ from math import sqrt,log
 import json
 from _getChampionIdList import getChampionIds
 
-
-
 ''' caracteristicas tomadas en cuenta:
     ChampionMasteries: 'championPoints'
     RankedStats:  "totalAssists", "totalDeathsPerSession", "totalSessionsWon",
         "totalChampionKills", "totalSessionsLost"
     '''
-
-
+    
 class recomenderSystem:
-    """ recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...} correspondiente a un cluser de usuarios y una id de usuario. 
+    """ recibe un json con el formato {playerId: {champId: {characteristic: , ...}, ...}, ...} correspondiente a un cluser de usuarios y una id de usuario.
 		permite generar distintos tipos de recomendaciones"""
     def __init__(self, sourceDict):
         # Source file created by getChampionsDataFromIdArray.py

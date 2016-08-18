@@ -1,8 +1,10 @@
 import json
 
+import constants as constants
+
 def getChampionIds():
     array = []
-    dir = "C:/Users/Vichoko/bin/Data"
+    dir = constants.dataDirectory
     with open(dir + "/ChampionData/las.json") as readfile:
         try:
             data = json.load(readfile)['data']

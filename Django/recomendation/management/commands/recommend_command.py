@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from recomendation.models import LasUser
 
-
 from _getChampionsDataFromIdArray import main as getChampionsDataFromIdArray
 from _recomendationSystem import recomenderSystem
 from _champIdToName import idToName as itn
@@ -10,12 +9,12 @@ from _snnClass import SNN
 import pandas as pd
 import random
 
+import recomendation.constants as constants
 
-dataDirectory = "C:/Users/Vichoko/bin/Data"
+dataDirectory = constants.dataDirectory
 
 # Caracteristicas sobre las cual se hara el clustering. Fijarse que esten incluidas en poblate_db.py Line 12 i.e. en la BD
 # Realmente
-# characteristics = ["wins", "totalChampionKills"]
 
 
 class Command(BaseCommand):
@@ -80,5 +79,3 @@ class Command(BaseCommand):
 
         # return {'Champion Mastery Ranking': cpRanking, 'KDA Ranking': kdaRanking, 'Winrate Ranking': wrRanking,
               # 'Heuristic ranking': hRanking, 'Colaborative Filtering Ranking': cfRanking}
-
-
