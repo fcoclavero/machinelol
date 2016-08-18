@@ -2,9 +2,10 @@ import requests, json, random
 
 import pandas as pd
 
+import recomendation.constants as constants
+
 from django.core.management.base import BaseCommand, CommandError
 from recomendation.models import LasUser
-
 from recomendation._getChampionsDataFromIdArray import main as getChampionsDataFromIdArray
 from recomendation._recomendationSystem import recomenderSystem
 from recomendation._champIdToName import idToName as itn
@@ -14,10 +15,10 @@ from recomendation._getPlayerDataOnDemand import getPlayerData
 
 # Estas son las caracteriticas que se incluiran en la base de datos. El resto de las caracteristicas quedan con NULL en sus valores.
 
-characteristics = ["wins", "totalChampionKills"] # characteristics = ["wins", "losses", "totalChampionKills", "totalTurretsKilled", "totalMinionKills", "totalNeutralMinionsKilled", "totalAssists"]
-regions = ["las"] # regions = ["br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"]
-dataDirectory = "C:/Users/Vichoko/bin/Data"
-keys = ["9b25bbda-7da3-4ee5-9d6b-a7ff2c402c0d", "0b808dbd-c044-43db-88a0-829dbd390aa7"]
+characteristics = constants.characteristics
+regions = constants.regions
+dataDirectory = constants.dataDirectory
+keys = constants.keys
 
 def getId(summonerName, region):
     data = requests.get("https://las.api.pvp.net/api/lol/" + region + "/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys[0])
