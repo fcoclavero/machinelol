@@ -260,11 +260,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>Your results are being generated.</h1><br>
-                    <p id="dialogContent">A lot of data is being processed. Please be patient.</p>
+                    <p>A lot of data is being processed. Please be patient.</p>
                 </div>
                 <div class="modal-body">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%;">
+                        <div id="dialogContent" class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%;">
                             processing data ...
                         </div>
                     </div>
@@ -287,19 +287,6 @@
 
     <!-- Loading dialog activation/deactivation -->
     <script>
-        // Check if HTTP method requires CSRF protection
-        function csrfSafeMethod(method) {
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        // Set header on AJAX request, protecting it being sent to other domains.
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-
         // When document is fully rendered
         $(document).ready(function(){
             $("#dialogContent").text("document ready");
@@ -310,12 +297,27 @@
             // Get X-CSRFToken from the csrftoken cookie.
             var csrftoken = Cookies.get('csrftoken');
 
+            // Check if HTTP method requires CSRF protection
+            function csrfSafeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            // Set header on AJAX request, protecting it being sent to other domains.
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
             $("#dialogContent").text("csrf cookie retrieved");
             // Make AJAX request and set featurette DOM elements contents for each recomendation type
             $.ajax({
                 type: 'POST',
                 url: "{% url 'ajax' %}",
                 data: {playerId: '{{ id }}', region: '{{ region }}'},
+                dataType: "json",
                 cache: false,
                 success: function (data, status) {
                     $("#dialogContent").text("ajax call");
@@ -324,12 +326,13 @@
                     $.each(data, function(key, value) {
                         $("#" + key + "Name").text(value[0].name);
                         $("#" + key + "Title").text(value[0].title);
-                        $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name + '_0.jpg');
+                        $("#" + key + "Image").attr('src', 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + value[0].name.replace(" ", "_") + '_0.jpg'); // replace is for champions with composite names
 
                         // for each champion in the ranking
                         var content = "<ul>"
                         $.each(value, function(champion) {
-                            content = content + ("<li>" + champion.name + "</li>")
+                            // image: http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/Aatrox.png
+                            content = content + '<li><div class="row"><img class="img-thumbnail" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/'+ champion.name.replace(" ", "_") +'" alt="thumbnail" width="154" heigth="280"><p>' + champion.name + '</p></li>'
                         });
 
                         $("#" + key + "Ranking").html(content + "</ul>");

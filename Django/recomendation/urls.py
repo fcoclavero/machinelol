@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.recomendation, name='recomendation'),
-    url(r'^ajax/$', views.getRecomendation, name='ajax'), # results via get
+    url(r'^ajax/$', views.ajax, name='ajax'), # results via get
 ]

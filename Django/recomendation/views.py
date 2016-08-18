@@ -33,14 +33,14 @@ def recomendation(request):
     else:
         return render(request, 'recomendation/error.html', {'message':"request not post"})
 
-def getRecomendation(request):
+def ajax(request):
     print('Recomendation request')
 
-    playerId = request.GET.get('playerId')
-    region = request.GET.get('region')
+    playerId = request.POST.get('playerId')
+    region = request.POST.get('region')
 
     if playerId is None or region is None:
-        return HttpResponseBadRequest()
+        return render(request, 'recomendation/error.html', {'message':"missing parameter"})
 
     # Add only top hits to recomendation view
     recomendation = getRecomendation(playerId = playerId, playerRegion = region)
