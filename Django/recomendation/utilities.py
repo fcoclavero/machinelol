@@ -34,7 +34,7 @@ def getChampionData(region, id):
     data = requests.get("https://las.api.pvp.net/api/lol/static-data/" + region + "/v1.2/champion/" + str(id) + "?api_key=" + keys[1])
     return data.json()
 
-def getRecomendation(playerId, playerRegion, dataSize = 10):
+def getRecomendation(playerId, playerRegion, dataSize = 100):
     # Update/add player id data to data folder
     getPlayerData(playerId, dataDirectory)
 
