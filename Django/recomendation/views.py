@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -23,19 +25,30 @@ def recomendation(request):
             if id == False:
                 return render(request, 'recomendation/error.html', {'message':"invalid summoner name"})
             else:
-                # Add only top hits to recomendation view
-                recomendation = getRecomendation(playerId = id, playerRegion = data["region"])
-                for key, value in recomendation.items():
-                    print(key)
-                    print(value)
-
-                    # Keep only top 5 champions
-                    recomendation[key] = [getChampionData(data["region"], championId) for championId in value[0:5]]
-
-                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id, 'recomendation':recomendation})
+                return render(request, 'recomendation/index.html', {'summonerName':data['summonerName'], 'region':data['region'], 'id':id})
 
         # If invalid redirect to error page
         else:
             return render(request, 'recomendation/error.html', {'message':"invalid form"})
     else:
         return render(request, 'recomendation/error.html', {'message':"request not post"})
+
+def ajax(request):
+    print('Recomendation request')
+
+    playerId = request.POST.get('playerId')
+    region = request.POST.get('region')
+
+    if playerId is None or region is None:
+        return render(request, 'recomendation/error.html', {'message':"missing parameter"})
+
+    # Add only top hits to recomendation view
+    recomendation = getRecomendation(playerId = playerId, playerRegion = region)
+    for key, value in recomendation.items():
+        print(key)
+        print(value)
+
+        # Keep only top 5 champions
+        recomendation[key] = [getChampionData(data["region"], championId) for championId in value[0:5]]
+
+    return HttpResponse(json.dumps(recomendation), mimetype='application/json')
