@@ -49,6 +49,6 @@ def ajax(request):
         print(value)
 
         # Keep only top 5 champions
-        recomendation[key] = [getChampionData(data["region"], championId) for championId in value[0:5]]
+        recomendation[key] = [getChampionData(region, championId) for championId in value[0:5]]
 
-    return HttpResponse(json.dumps(recomendation), mimetype='application/json')
+    return HttpResponse(json.dumps(recomendation))
