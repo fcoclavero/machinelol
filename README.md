@@ -40,7 +40,6 @@ Como usar:
 
 	En ambos casos se utilizan scripts identicos, son dos formas de recibir la respuesta.
 
-Cualquier duda envíe un correo a vicenteoyanedel@gmail.com o fcoclavero32@gmail.com.
 Podemos coordinar una prueba o lo puedo ayudar a solucionar algun problema.
 
 -----------------------------------------------------------------------------------------------------------
